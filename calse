@@ -1,0 +1,13 @@
+compilar
+g++ -o programa programa.c++
+-o para dalre una salida que nosotros queremos (programa en este caso)
+ejecutar
+./programa
+prueba compilar 
+gcc programa.c++
+a.out como resultado
+se puede renombrar con mv a.out programa
+
+addon google
+2882-> office
+
