@@ -1,7 +1,12 @@
 #include <iostream>
-using namespace std;
+#include <sstream>
 #include "Complejo.h"
+using namespace std;
 
-void Complejo::imprimir(){
-  cout<< real << " + " << imag<<"i";
+
+string Complejo::imprimir(){
+
+    stringstream sss ;
+    sss <<  real << " + " << imag<<"i" ;;
+    return sss.str();
 }
