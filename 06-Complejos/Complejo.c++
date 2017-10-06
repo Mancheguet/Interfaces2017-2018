@@ -3,19 +3,17 @@
 #include "Complejo.h"
 using namespace std;
 
-
+//Constructor con dos parametros
 Complejo::Complejo(float realP, float imagP){
   real=realP;
   imag=imagP;
 }
 
+//Delego el constructor en el primero pasandole los dos parametros
+Complejo::Complejo() : Complejo(0,0) {}
 
-Complejo::Complejo(){}
-
-Complejo::Complejo(float realP){
-  real=realP;
-  imag=0;
-}
+//con constructor : Complejo(realP,0) , lo que hago es ejecutar el constructor doble
+Complejo::Complejo(float realP) : Complejo(realP,0) {}
 
 
 

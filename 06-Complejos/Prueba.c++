@@ -53,7 +53,7 @@ Complejo operator++ (Complejo & c1, int i){
 int main (int argc,char * argv[]){
 
   Complejo c(5,-8);
-  Complejo a(4,9);
+  Complejo a(4);
   Complejo b;
 /*
   c.real=5;
@@ -80,5 +80,15 @@ int main (int argc,char * argv[]){
   e = a++;
   cout<< "El número a con a++ -> "<< (a).imprimir() << endl;
   cout<< "El número e con a++ -> "<< (e).imprimir() << endl;
+
+  Complejo x;
+  x= a + 5; // esto funciona porque lo que hace es
+  //con el constructor de un parametro , convierte el 5 en un Complejo(5,0) porque
+  //tenemos ese constructor y encima
+  //hemos sobrescrito el metodo de suma
+  //diciendole que el segundo parametro (en este caso 5) , sería un Complejo
+  //entonces c automaticamente crea el complejo con 5
+  cout<< "El número x -> "<< (x).imprimir() << endl;
+
 
 }
