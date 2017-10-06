@@ -1,8 +1,11 @@
+#include <string>
+using namespace std;
+
 class Complejo{
 
 public:
   float real;
   float imag;
-  void imprimir();
+  string imprimir();
 
 };
