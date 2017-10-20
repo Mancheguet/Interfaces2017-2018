@@ -144,6 +144,21 @@ void mergeSort (vector<int> & numeros){
 
   if(numeros.size()<=1) return;
 
+  /* Forma de Nacho */
+  /*
+  int mitad = numeros.size()/2;
+  int i=0;
+  while (i< numeros.size()){
+    if(i<mitad){
+        mitadIzq.push_back(numeros[i]);
+    } else {
+        mitadDer.push_back(numeros[i]);
+    }
+    i++;
+  }
+
+  */
+
   for (int i = 0 ; i<(numeros.size()/2); i++){
     mitadIzq.push_back(numeros[i]);
   }
@@ -164,7 +179,7 @@ int main(int argc, char *argv[]){
   vector<int> numeros2;
 
   inicializar(numeros1, 3);
-  inicializar(numeros2, 300);
+  inicializar(numeros2, 100);
 
   cout << "Sin ordenar" <<endl;
   //mostrar(numeros1);
