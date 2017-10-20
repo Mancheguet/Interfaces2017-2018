@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <iostream>
+#include <stdio.h>
 #include <vector>
 using namespace std;
 
@@ -179,16 +180,26 @@ int main(int argc, char *argv[]){
   vector<int> numeros2;
 
   inicializar(numeros1, 3);
-  inicializar(numeros2, 100);
+  inicializar(numeros2, 300);
 
   cout << "Sin ordenar" <<endl;
   //mostrar(numeros1);
   mostrar(numeros2);
 
+  clock_t t = clock(); //para medir el tiempo
+
   mergeSort(numeros2);
 
   cout << "Ordenado : " << endl;
   mostrar(numeros2);
+
+  //medición de tiempo:
+  t = clock() - t; //Hacer la resta de el tiempo para saber el ocupado
+  float tiempo = (float) t/CLOCKS_PER_SEC;
+  printf("Id it took me %d clicks (%f seconds).\n",(int) t,tiempo);
+  //fin medición tiempo
+
+
 /*
   burbuja(numeros1);
   burbuja(numeros2);
