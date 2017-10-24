@@ -174,14 +174,68 @@ void mergeSort (vector<int> & numeros){
 
 }
 
+/* HACER EN QUICKSORT */
+
+void quickSort(vector<int> & numeros, int posIni, int posFin){
+
+    int iz  = posIni;
+    int der = posFin;
+
+    if(posIni == posFin) return;
+
+    int pivote = numeros[(posFin-posIni)/2];
+
+    cout << "Entrando en quikSort con pivote " << pivote <<endl;
+    cout << "iz es igual a " << iz << endl;
+    cout << "der es igual a " << der << endl;
+    mostrar(numeros);
+
+      while (iz < der){
+
+        while (numeros[iz] < pivote){
+          iz++;
+        }
+
+        while (numeros[der] > pivote){
+          der--;
+        }
+
+        cout << "Intenta cambiar " << endl;
+        cout << iz << " " <<numeros[iz] <<endl;
+        cout << der << " " <<numeros[der] << endl;
+        mostrar(numeros);
+
+        if(iz<der){
+            cout << "Cambio" << endl;
+            intercambiar(numeros, iz, der);
+            mostrar(numeros);
+            der--;
+            iz++;
+        }
+      }
+
+      if(iz < posFin ) quickSort(numeros, iz, posFin);
+      if(der > posIni ) quickSort(numeros, posIni, der);
+
+}
+
 int main(int argc, char *argv[]){
 
   vector<int> numeros1;
   vector<int> numeros2;
 
   inicializar(numeros1, 3);
-  inicializar(numeros2, 300);
+  inicializar(numeros2, 15);
 
+
+  //quickSort(numeros2);
+
+  quickSort(numeros2,0,numeros2.size()-1);
+  mostrar(numeros2);
+
+
+
+/*
   cout << "Sin ordenar" <<endl;
   //mostrar(numeros1);
   mostrar(numeros2);
@@ -198,7 +252,7 @@ int main(int argc, char *argv[]){
   float tiempo = (float) t/CLOCKS_PER_SEC;
   printf("Id it took me %d clicks (%f seconds).\n",(int) t,tiempo);
   //fin medición tiempo
-
+*/
 
 /*
   burbuja(numeros1);
