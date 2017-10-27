@@ -205,7 +205,7 @@ void quickSort(vector<int> & numeros, int posIni, int posFin){
         cout << der << " " <<numeros[der] << endl;
         mostrar(numeros);
 
-        if(iz<=der){
+        if(iz <= der){
             cout << "Cambio" << endl;
             intercambiar(numeros, iz, der);
             mostrar(numeros);
@@ -218,20 +218,105 @@ void quickSort(vector<int> & numeros, int posIni, int posFin){
       if(iz < posFin ) quickSort(numeros, iz, posFin);
 }
 
+void heapificar(vector<int> & numeros){
+
+  int indicePadre=0;
+  int indiceHijo;
+
+
+  for (int nuevoNodo = 0; nuevoNodo < numeros.size() ; nuevoNodo++){
+
+    indiceHijo=nuevoNodo;
+
+    if(indiceHijo % 2 == 0){
+      indicePadre = (indiceHijo-2)/2;
+    }
+    if(indiceHijo % 2 != 0){
+      indicePadre = (indiceHijo-1)/2;
+    }
+
+    while( indiceHijo!=0 && numeros[indiceHijo] > numeros[indicePadre]){
+
+        intercambiar(numeros, indicePadre, indiceHijo);
+        indiceHijo = indicePadre;
+
+        if(indiceHijo % 2 == 0){
+          indicePadre = (indiceHijo-2)/2;
+        }
+        if(indiceHijo % 2 != 0){
+          indicePadre = (indiceHijo-1)/2;
+        }
+
+    }
+  }
+
+}
+
+void desApilar(vector<int> & numeros){
+
+  int indicePadre=0;
+  int indiceFinal = numeros.size()-1;
+  int indiceHijoI;
+  int indiceHijoD;
+
+  for (int nuevoNodo = 0; nuevoNodo < numeros.size() ; nuevoNodo++){
+
+      indicePadre = 0;
+      intercambiar(numeros, indicePadre, indiceFinal);
+      indiceFinal--;
+
+      indiceHijoI = 2*indicePadre+1;
+      indiceHijoD = 2*indicePadre+2;
+
+//tengo que controlar que el indice del padre no me coja la parte que corta indicefinal , peroque esos ya estan bien.
+
+      while(indicePadre<indiceFinal && (numeros[indicePadre]<numeros[indiceHijoI] || numeros[indicePadre]<numeros[indiceHijoD])){
+
+        if(numeros[indicePadre]<numeros[indiceHijoI]){
+          intercambiar(numeros, indicePadre, indiceHijoI);
+          indicePadre = indiceHijoI;
+        } else if (numeros[indicePadre]<numeros[indiceHijoI]){
+          intercambiar(numeros,indicePadre, indiceHijoD);
+          indicePadre = indiceHijoD;
+        }
+
+        indiceHijoI = 2*indicePadre+1;
+        indiceHijoD = 2*indicePadre+2;
+
+      }
+
+
+  }
+
+
+}
+
 int main(int argc, char *argv[]){
+
+//2*i+1 izquierda
+//2*i+2 derecha - arbol
+//padre par -> (indexHijo-2)/2
+//padre Impar -> (indexHijo-1)/2
 
   vector<int> numeros1;
   vector<int> numeros2;
 
   inicializar(numeros1, 3);
-  inicializar(numeros2, 15);
+  inicializar(numeros2, 10);
 
 
   //quickSort(numeros2);
 
-  quickSort(numeros2,0,numeros2.size()-1);
+  //quickSort(numeros2,0,numeros2.size()-1);
   mostrar(numeros2);
 
+  heapificar(numeros2);
+
+  mostrar(numeros2);
+
+  desApilar(numeros2);
+
+  mostrar(numeros2);
 
 
 /*
