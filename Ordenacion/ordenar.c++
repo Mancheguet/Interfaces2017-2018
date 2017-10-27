@@ -181,16 +181,16 @@ void quickSort(vector<int> & numeros, int posIni, int posFin){
     int iz  = posIni;
     int der = posFin;
 
-    if(posIni == posFin) return;
+    if(posIni >= posFin) return;
 
-    int pivote = numeros[(posFin-posIni)/2];
+    int pivote = numeros[(posFin+posIni)/2];
 
     cout << "Entrando en quikSort con pivote " << pivote <<endl;
     cout << "iz es igual a " << iz << endl;
     cout << "der es igual a " << der << endl;
     mostrar(numeros);
 
-      while (iz < der){
+      while (iz<der){
 
         while (numeros[iz] < pivote){
           iz++;
@@ -205,7 +205,7 @@ void quickSort(vector<int> & numeros, int posIni, int posFin){
         cout << der << " " <<numeros[der] << endl;
         mostrar(numeros);
 
-        if(iz<der){
+        if(iz<=der){
             cout << "Cambio" << endl;
             intercambiar(numeros, iz, der);
             mostrar(numeros);
@@ -214,9 +214,8 @@ void quickSort(vector<int> & numeros, int posIni, int posFin){
         }
       }
 
-      if(iz < posFin ) quickSort(numeros, iz, posFin);
       if(der > posIni ) quickSort(numeros, posIni, der);
-
+      if(iz < posFin ) quickSort(numeros, iz, posFin);
 }
 
 int main(int argc, char *argv[]){
