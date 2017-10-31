@@ -254,42 +254,44 @@ void heapificar(vector<int> & numeros){
 
 void desApilar(vector<int> & numeros){
 
-  int indicePadre=0;
   int indiceFinal = numeros.size()-1;
   int indiceHijoI;
   int indiceHijoD;
 
-  for (int nuevoNodo = 0; nuevoNodo < numeros.size() ; nuevoNodo++){
+  while (indiceFinal != 0){
 
-      indicePadre = 0;
-      intercambiar(numeros, indicePadre, indiceFinal);
-      indiceFinal--;
+    intercambiar(numeros, 0, indiceFinal);
+    indiceFinal--;
+    int indicePadre=0;
+    int hijoMayor;
 
-      indiceHijoI = 2*indicePadre+1;
-      indiceHijoD = 2*indicePadre+2;
+    indiceHijoI = 2*indicePadre+1;
+    indiceHijoD = 2*indicePadre+2;
 
-//tengo que controlar que el indice del padre no me coja la parte que corta indicefinal , peroque esos ya estan bien.
+    while(indiceHijoI<=indiceFinal){ //tiene algun hijo
 
-      while(indicePadre<indiceFinal && (numeros[indicePadre]<numeros[indiceHijoI] || numeros[indicePadre]<numeros[indiceHijoD])){
-
-        if(numeros[indicePadre]<numeros[indiceHijoI]){
-          intercambiar(numeros, indicePadre, indiceHijoI);
-          indicePadre = indiceHijoI;
-        } else if (numeros[indicePadre]<numeros[indiceHijoI]){
-          intercambiar(numeros,indicePadre, indiceHijoD);
-          indicePadre = indiceHijoD;
+        if(indiceHijoD<=indiceFinal) { // tiene dos hijos ...
+          if(numeros[indiceHijoD]>numeros[indiceHijoI]){
+              hijoMayor= indiceHijoD;
+          } else {
+              hijoMayor= indiceHijoI;
+          }
         }
 
-        indiceHijoI = 2*indicePadre+1;
-        indiceHijoD = 2*indicePadre+2;
+        if(indiceHijoD > indiceFinal){ //no tengo dos hijos
+          hijoMayor= indiceHijoI;
+        }
 
-      }
-
-
+        if(numeros[hijoMayor] > numeros[indicePadre]){
+          intercambiar(numeros, indicePadre, hijoMayor);
+          indicePadre = hijoMayor;
+          indiceHijoI = 2*indicePadre+1;
+          indiceHijoD = 2*indicePadre+2;
+        } else break;
+    }
   }
-
-
 }
+
 
 int main(int argc, char *argv[]){
 
