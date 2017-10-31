@@ -292,7 +292,6 @@ void desApilar(vector<int> & numeros){
   }
 }
 
-
 int main(int argc, char *argv[]){
 
 //2*i+1 izquierda
