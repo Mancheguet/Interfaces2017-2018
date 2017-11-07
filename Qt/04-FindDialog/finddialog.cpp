@@ -6,11 +6,11 @@
  FindDialog::FindDialog(QWidget *parent)
       : QDialog(parent)
   {
-      label = new QLabel(tr("Find &what:"));
-      lineEdit = new QLineEdit;
-      label->setBuddy(lineEdit);
+     label = new QLabel(tr("Find &what:"));
+     lineEdit = new QLineEdit;
+     label->setBuddy(lineEdit);
 
-      caseCheckBox = new QCheckBox(tr("Match &case"));
+     caseCheckBox = new QCheckBox(tr("Match &case"));
      backwardCheckBox = new QCheckBox(tr("Search &backward"));
 
      findButton = new QPushButton(tr("&Find"));
@@ -20,7 +20,7 @@
      closeButton = new QPushButton(tr("Close"));
 
 
-  connect(lineEdit, SIGNAL(textChanged(const QString &)),
+   connect(lineEdit, SIGNAL(textChanged(const QString &)),
            this, SLOT(enableFindButton(const QString &)));
    connect(findButton, SIGNAL(clicked()),
           this, SLOT(findClicked()));
@@ -46,7 +46,7 @@
     mainLayout->addLayout(leftLayout);
     mainLayout->addLayout(rightLayout);
     setLayout(mainLayout);
-    
+
  setWindowTitle(tr("Find"));
     setFixedHeight(sizeHint().height());
  }
