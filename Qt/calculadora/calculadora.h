@@ -16,6 +16,7 @@ private slots:
     void editPantalla1();
     void editPantalla2();
     void editPantalla3();
+    void editPantallaEnter();
 };
 
 #endif

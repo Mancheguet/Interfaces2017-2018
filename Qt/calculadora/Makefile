@@ -49,10 +49,14 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = calculadora.cpp \
-		main.cpp moc_calculadora.cpp
+		main.cpp \
+		xarxa.cpp moc_calculadora.cpp \
+		moc_xarxa.cpp
 OBJECTS       = calculadora.o \
 		main.o \
-		moc_calculadora.o
+		xarxa.o \
+		moc_calculadora.o \
+		moc_xarxa.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -117,8 +121,10 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		calculadora.pro calculadora.h calculadora.cpp \
-		main.cpp
+		calculadora.pro calculadora.h \
+		xarxa.h calculadora.cpp \
+		main.cpp \
+		xarxa.cpp
 QMAKE_TARGET  = calculadora
 DESTDIR       = 
 TARGET        = calculadora
@@ -127,7 +133,7 @@ TARGET        = calculadora
 first: all
 ####### Build rules
 
-$(TARGET): ui_calculadora.h $(OBJECTS)  
+$(TARGET): ui_calculadora.h ui_xarxa.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: calculadora.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -281,9 +287,9 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents calculadora.h $(DISTDIR)/
-	$(COPY_FILE) --parents calculadora.cpp main.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents calculadora.ui $(DISTDIR)/
+	$(COPY_FILE) --parents calculadora.h xarxa.h $(DISTDIR)/
+	$(COPY_FILE) --parents calculadora.cpp main.cpp xarxa.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents calculadora.ui xarxa.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -309,22 +315,31 @@ benchmark: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_calculadora.cpp
+compiler_moc_header_make_all: moc_calculadora.cpp moc_xarxa.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_calculadora.cpp
+	-$(DEL_FILE) moc_calculadora.cpp moc_xarxa.cpp
 moc_calculadora.cpp: ui_calculadora.h \
 		calculadora.h \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/vesprada/Documents/Interfaces2017-2018/Qt/calculadora -I/home/vesprada/Documents/Interfaces2017-2018/Qt/calculadora -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include calculadora.h -o moc_calculadora.cpp
 
+moc_xarxa.cpp: ui_xarxa.h \
+		xarxa.h \
+		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/vesprada/Documents/Interfaces2017-2018/Qt/calculadora -I/home/vesprada/Documents/Interfaces2017-2018/Qt/calculadora -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include xarxa.h -o moc_xarxa.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_calculadora.h
+compiler_uic_make_all: ui_calculadora.h ui_xarxa.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_calculadora.h
+	-$(DEL_FILE) ui_calculadora.h ui_xarxa.h
 ui_calculadora.h: calculadora.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic calculadora.ui -o ui_calculadora.h
+
+ui_xarxa.h: xarxa.ui \
+		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic xarxa.ui -o ui_xarxa.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -336,7 +351,9 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 
 ####### Compile
 
-calculadora.o: calculadora.cpp calculadora.h \
+calculadora.o: calculadora.cpp xarxa.h \
+		ui_xarxa.h \
+		calculadora.h \
 		ui_calculadora.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calculadora.o calculadora.cpp
 
@@ -344,8 +361,15 @@ main.o: main.cpp calculadora.h \
 		ui_calculadora.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
+xarxa.o: xarxa.cpp xarxa.h \
+		ui_xarxa.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o xarxa.o xarxa.cpp
+
 moc_calculadora.o: moc_calculadora.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_calculadora.o moc_calculadora.cpp
+
+moc_xarxa.o: moc_xarxa.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_xarxa.o moc_xarxa.cpp
 
 ####### Install
 
