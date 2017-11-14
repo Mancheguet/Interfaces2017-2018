@@ -12,6 +12,10 @@ class Calculadora : public QDialog, public Ui::Calculadora
 public:
     Calculadora(QWidget *parent = 0);
 
+private slots:
+    void editPantalla1();
+    void editPantalla2();
+    void editPantalla3();
 };
 
 #endif
