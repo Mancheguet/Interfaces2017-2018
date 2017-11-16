@@ -32,7 +32,7 @@ QT_BEGIN_NAMESPACE
 class Ui_Xarxa
 {
 public:
-    QWidget *widget;
+    QWidget *layoutWidget;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
     QLabel *label;
@@ -43,7 +43,7 @@ public:
     QWidget *tab_4;
     QWidget *tab_5;
     QWidget *tab_6;
-    QWidget *widget1;
+    QWidget *layoutWidget1;
     QVBoxLayout *verticalLayout_7;
     QVBoxLayout *verticalLayout_6;
     QHBoxLayout *horizontalLayout_4;
@@ -83,20 +83,20 @@ public:
         if (Xarxa->objectName().isEmpty())
             Xarxa->setObjectName(QStringLiteral("Xarxa"));
         Xarxa->resize(693, 552);
-        widget = new QWidget(Xarxa);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(10, 10, 671, 521));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget = new QWidget(Xarxa);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(10, 10, 671, 521));
+        verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        label = new QLabel(widget);
+        label = new QLabel(layoutWidget);
         label->setObjectName(QStringLiteral("label"));
 
         horizontalLayout->addWidget(label);
 
-        lineEdit = new QLineEdit(widget);
+        lineEdit = new QLineEdit(layoutWidget);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
 
         horizontalLayout->addWidget(lineEdit);
@@ -104,7 +104,7 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
-        tabWidget = new QTabWidget(widget);
+        tabWidget = new QTabWidget(layoutWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
@@ -120,22 +120,22 @@ public:
         tabWidget->addTab(tab_5, QString());
         tab_6 = new QWidget();
         tab_6->setObjectName(QStringLiteral("tab_6"));
-        widget1 = new QWidget(tab_6);
-        widget1->setObjectName(QStringLiteral("widget1"));
-        widget1->setGeometry(QRect(10, 10, 641, 391));
-        verticalLayout_7 = new QVBoxLayout(widget1);
+        layoutWidget1 = new QWidget(tab_6);
+        layoutWidget1->setObjectName(QStringLiteral("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(10, 10, 641, 391));
+        verticalLayout_7 = new QVBoxLayout(layoutWidget1);
         verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
         verticalLayout_7->setContentsMargins(0, 0, 0, 0);
         verticalLayout_6 = new QVBoxLayout();
         verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        label_2 = new QLabel(widget1);
+        label_2 = new QLabel(layoutWidget1);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         horizontalLayout_4->addWidget(label_2);
 
-        comboBox = new QComboBox(widget1);
+        comboBox = new QComboBox(layoutWidget1);
         comboBox->setObjectName(QStringLiteral("comboBox"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
@@ -152,13 +152,15 @@ public:
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
-        adreces = new QLabel(widget1);
+        adreces = new QLabel(layoutWidget1);
         adreces->setObjectName(QStringLiteral("adreces"));
+        adreces->setEnabled(false);
 
         verticalLayout_3->addWidget(adreces);
 
-        treeWidget = new QTreeWidget(widget1);
+        treeWidget = new QTreeWidget(layoutWidget1);
         treeWidget->setObjectName(QStringLiteral("treeWidget"));
+        treeWidget->setEnabled(false);
 
         verticalLayout_3->addWidget(treeWidget);
 
@@ -171,14 +173,15 @@ public:
 
         verticalLayout_2->addItem(verticalSpacer);
 
-        afegir = new QPushButton(widget1);
+        afegir = new QPushButton(layoutWidget1);
         afegir->setObjectName(QStringLiteral("afegir"));
         afegir->setEnabled(false);
 
         verticalLayout_2->addWidget(afegir);
 
-        suprimir = new QPushButton(widget1);
+        suprimir = new QPushButton(layoutWidget1);
         suprimir->setObjectName(QStringLiteral("suprimir"));
+        suprimir->setEnabled(false);
 
         verticalLayout_2->addWidget(suprimir);
 
@@ -196,17 +199,17 @@ public:
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
         verticalLayout_4 = new QVBoxLayout();
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
-        label_4 = new QLabel(widget1);
+        label_4 = new QLabel(layoutWidget1);
         label_4->setObjectName(QStringLiteral("label_4"));
 
         verticalLayout_4->addWidget(label_4);
 
-        label_5 = new QLabel(widget1);
+        label_5 = new QLabel(layoutWidget1);
         label_5->setObjectName(QStringLiteral("label_5"));
 
         verticalLayout_4->addWidget(label_5);
 
-        label_6 = new QLabel(widget1);
+        label_6 = new QLabel(layoutWidget1);
         label_6->setObjectName(QStringLiteral("label_6"));
 
         verticalLayout_4->addWidget(label_6);
@@ -216,17 +219,17 @@ public:
 
         verticalLayout_5 = new QVBoxLayout();
         verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
-        lineEdit_2 = new QLineEdit(widget1);
+        lineEdit_2 = new QLineEdit(layoutWidget1);
         lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
 
         verticalLayout_5->addWidget(lineEdit_2);
 
-        lineEdit_3 = new QLineEdit(widget1);
+        lineEdit_3 = new QLineEdit(layoutWidget1);
         lineEdit_3->setObjectName(QStringLiteral("lineEdit_3"));
 
         verticalLayout_5->addWidget(lineEdit_3);
 
-        lineEdit_4 = new QLineEdit(widget1);
+        lineEdit_4 = new QLineEdit(layoutWidget1);
         lineEdit_4->setObjectName(QStringLiteral("lineEdit_4"));
 
         verticalLayout_5->addWidget(lineEdit_4);
@@ -237,7 +240,7 @@ public:
 
         verticalLayout_6->addLayout(horizontalLayout_6);
 
-        checkBox = new QCheckBox(widget1);
+        checkBox = new QCheckBox(layoutWidget1);
         checkBox->setObjectName(QStringLiteral("checkBox"));
 
         verticalLayout_6->addWidget(checkBox);
@@ -251,7 +254,7 @@ public:
 
         horizontalLayout_7->addItem(horizontalSpacer_2);
 
-        pushButton_5 = new QPushButton(widget1);
+        pushButton_5 = new QPushButton(layoutWidget1);
         pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
 
         horizontalLayout_7->addWidget(pushButton_5);
@@ -274,12 +277,12 @@ public:
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        pushButton_2 = new QPushButton(widget);
+        pushButton_2 = new QPushButton(layoutWidget);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
 
         horizontalLayout_2->addWidget(pushButton_2);
 
-        pushButton = new QPushButton(widget);
+        pushButton = new QPushButton(layoutWidget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
 
         horizontalLayout_2->addWidget(pushButton);
@@ -290,12 +293,6 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_3);
 
-        label->raise();
-        lineEdit->raise();
-        tabWidget->raise();
-        pushButton->raise();
-        pushButton_2->raise();
-        pushButton->raise();
 
         retranslateUi(Xarxa);
 

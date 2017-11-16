@@ -15,5 +15,8 @@ Xarxa::Xarxa(QWidget *parent)
 void Xarxa::activarPanelRed(int index){
 
     afegir->setEnabled(index == 0);
+    suprimir->setEnabled(index == 0);
+    adreces->setEnabled(index == 0);
+    treeWidget->setEnabled(index == 0);
 
 }
