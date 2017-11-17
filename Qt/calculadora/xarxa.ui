@@ -97,17 +97,17 @@
                </property>
                <item>
                 <property name="text">
-                 <string>Manual</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
                  <string>Automàtic(DHCP)</string>
                 </property>
                </item>
                <item>
                 <property name="text">
                  <string>Només adreces (DHCP) automàtiques</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Manual</string>
                 </property>
                </item>
                <item>

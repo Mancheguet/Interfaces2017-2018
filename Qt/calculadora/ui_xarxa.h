@@ -313,9 +313,9 @@ public:
         label_2->setText(QApplication::translate("Xarxa", "M\303\250tode :", Q_NULLPTR));
         comboBox->clear();
         comboBox->insertItems(0, QStringList()
-         << QApplication::translate("Xarxa", "Manual", Q_NULLPTR)
          << QApplication::translate("Xarxa", "Autom\303\240tic(DHCP)", Q_NULLPTR)
          << QApplication::translate("Xarxa", "Nom\303\251s adreces (DHCP) autom\303\240tiques", Q_NULLPTR)
+         << QApplication::translate("Xarxa", "Manual", Q_NULLPTR)
          << QApplication::translate("Xarxa", "Nom\303\251s adreces de connexi\303\263 local", Q_NULLPTR)
          << QApplication::translate("Xarxa", "Compartit a altres ordinadors", Q_NULLPTR)
          << QApplication::translate("Xarxa", "Inhabilitada", Q_NULLPTR)
