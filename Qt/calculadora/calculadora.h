@@ -17,6 +17,8 @@ private slots:
     void editPantalla2();
     void editPantalla3();
     void editPantallaEnter();
+    //forma profesor
+    void textoCambiado(const QString &);
 };
 
 #endif

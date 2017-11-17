@@ -16,6 +16,8 @@ Calculadora::Calculadora(QWidget *parent)
     connect(btn2, SIGNAL(clicked()), this, SLOT(editPantalla2()));
     connect(btn3, SIGNAL(clicked()), this, SLOT(editPantalla3()));
     connect(btnEnter, SIGNAL(clicked()), this, SLOT(editPantallaEnter()));
+    //forma profesor -> coenctado con textoCambiado
+    connect(pantalla, SIGNAL(textChanged(const QString &)), this, SLOT(textoCambiado(const QString &)));
 
 }
 
@@ -47,4 +49,11 @@ void Calculadora::editPantallaEnter(){
   Xarxa *dialogXarxa = new Xarxa;
   dialogXarxa->show();
 
+}
+
+//forma profesor
+void Calculadora::textoCambiado(const QString & texto){
+  if(texto == "121"){
+    editPantallaEnter();
+  }
 }
