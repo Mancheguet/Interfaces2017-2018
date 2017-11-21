@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "QMessageBox"
 
 VentanaPrincipal::VentanaPrincipal(
     QWidget * parent,
@@ -123,6 +124,20 @@ void VentanaPrincipal::slotActualizarBarraEstado(){
 
 void VentanaPrincipal::slotNuevo(){
 
-    editorCentral->document()->clear(); //limpiar el documento
+    int r = QMessageBox::warning(this, tr("Aviso"),
+              tr("Quieres realmente crear un documento nuevo ?"),
+              QMessageBox::Yes | QMessageBox::Cancel);
+
+              QString cadena3 = QString::number(r); //Pasar de int a string
+              ///ver que hay en r
+              editorCentral->setText("eo"+cadena3);
+///////////////NOS QUEDAMOS AQÍ , HAYQ EU VER COMO HACER EL IF
+              if(cadena3=="eo16384"){
+                editorCentral->document()->clear(); //limpiar el documento
+              } else {
+
+              }
+
+    //editorCentral->document()->clear(); //limpiar el documento
 
 }
