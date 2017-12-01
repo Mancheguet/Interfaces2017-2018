@@ -13,12 +13,20 @@
 
 #include <QLabel>
 
+#include <QFileDialog>
+#include <QFile>
+#include <QTextStream>
+
+#include <QCloseEvent>
+#include <QMutableStringListIterator>
+
 class VentanaPrincipal : public QMainWindow
 {
     Q_OBJECT
 
 public:
     VentanaPrincipal(QWidget * parent = 0, Qt::WindowFlags flags = 0);
+    static const int MAX_RECENT_FILES = 5;
 
 private:
     QTextEdit *editorCentral;
@@ -27,25 +35,36 @@ private:
     QAction *accionGuardar;
     QAction *accionAbrir;
     QAction *accionNuevo;
+    QAction * accionesFicherosRecientes[MAX_RECENT_FILES];
 
     QMenu *fileMenu;
+
+    bool txtModificado;
 
     QToolBar *barraArchivo;
     QToolBar *barraSalir;
 
     QLabel *labelNumeroLineas;
     QLabel *labelNumeroCaracteres;
+    QLabel *rutaArchivoActual;
+
+    bool abrirFichero(QString nombre);
+
+    QStringList ficherosRecientes;
 
     void createActions();
     void createMenus();
     void createToolBars();
     void createStatusBar();
+    void establecerFicheroActual(QString ruta);
 
 private slots:
     void slotAbrir();
     void slotGuardar();
     void slotActualizarBarraEstado();
     void slotNuevo();
+    void closeEvent(QCloseEvent *event);
+    void slotAbrirFicheroReciente();
 
 };
 

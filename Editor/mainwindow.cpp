@@ -51,6 +51,14 @@ void VentanaPrincipal::createActions(){
   connect(accionNuevo,SIGNAL(triggered()),this, SLOT(slotNuevo()));
   accionNuevo->setShortcut(tr("Ctrl+n"));
 
+  //Bucle de creación de acciones :
+  for (int i = 0; i < MAX_RECENT_FILES; i++) {
+    accionesFicherosRecientes[i] = new QAction(QIcon("./nuevo.png"),"Reciente "+QString::number(i),this);
+    accionesFicherosRecientes[i] -> setVisible(true);
+    connect(accionesFicherosRecientes[i],SIGNAL(triggered()),
+                          this, SLOT(slotAbrirFicheroReciente()));
+  }
+
 }
 
 void VentanaPrincipal::createMenus(){
@@ -62,6 +70,10 @@ void VentanaPrincipal::createMenus(){
   fileMenu->addAction(accionAbrir); //añadir abrir
   fileMenu->addAction(accionGuardar); //añadir guardar
   fileMenu->addAction(accionNuevo); //añadir nuevo
+
+  for (int i = 0; i < MAX_RECENT_FILES; i++) {
+    fileMenu->addAction(accionesFicherosRecientes[i]);
+  }
 
   //Menú Contextual
   editorCentral->addAction(accionSalir); //añadir al editor central con clic derecho el menu la opcin de salir
@@ -87,12 +99,70 @@ void VentanaPrincipal::createToolBars(){
 
 }
 
+//Crea la Status Bar con el numero de lineas y otro con el numero de caracteres que se va actlualizando
+
 void VentanaPrincipal::createStatusBar(){
 
   labelNumeroLineas = new QLabel(" Número de líneas : 1");
   statusBar()->addWidget(labelNumeroLineas);
   labelNumeroCaracteres = new QLabel(" Número carácteres : 0");
   statusBar()->addWidget(labelNumeroCaracteres);
+  rutaArchivoActual = new QLabel("Ruta :");
+  statusBar()->addWidget(rutaArchivoActual);
+
+}
+
+//Metodo para abrir un fichero
+bool VentanaPrincipal::abrirFichero(QString nombre){
+
+  editorCentral->document()->clear();
+
+  QFile archivo(nombre);
+  if(!archivo.open(QIODevice::ReadOnly)){
+    QMessageBox::warning(this, tr("Editor"),
+                             tr("Cannot read file 1:\n2.")
+                             .arg(archivo.fileName())
+                             .arg(archivo.errorString()));
+    return false;
+  }
+
+  QTextStream stream(&archivo);
+
+  while(!stream.atEnd()){
+    editorCentral->append(stream.readLine());
+  }
+
+  rutaArchivoActual->setText(" Ruta : "+archivo.fileName());
+  establecerFicheroActual(nombre);
+
+  return true;
+}
+
+void VentanaPrincipal::establecerFicheroActual(QString ruta){
+
+  //si el numero del array es menro al Max , borra y añade al principio el archivo
+  if(ficherosRecientes.size()<MAX_RECENT_FILES){
+    ficherosRecientes.removeAll(ruta);
+    ficherosRecientes.prepend(ruta);
+  } else {
+    //sino, lo que hago es borrar el útlimo elemento y añadir el nuevo elemento
+    ficherosRecientes.removeAll(ficherosRecientes[ficherosRecientes.size()-1]);
+    ficherosRecientes.removeAll(ruta);
+    ficherosRecientes.prepend(ruta);
+  }
+
+  //iterador que elimina los ficheros que ya no estan en el sistema
+  QMutableStringListIterator i(ficherosRecientes);
+  while(i.hasNext()){
+    if(!QFile::exists(i.next()))
+      i.remove();
+  }
+
+  //pongo en el editor central el array
+  editorCentral->document()->setPlainText("");
+  for (int i = 0; i < ficherosRecientes.size(); i++) {
+    editorCentral->append(ficherosRecientes[i]);
+  }
 
 }
 
@@ -102,6 +172,36 @@ void VentanaPrincipal::createStatusBar(){
 
 void VentanaPrincipal::slotAbrir(){
 
+  //Al apretar en abrrir , se crea y se abre un FIleDIalog de bsucar documetno
+  QString fileName = QFileDialog::getOpenFileName(
+  this, tr("Abrir archivo"),"/home/vesprada/Baixades","*.txt");
+
+  //Si se selecciona algun archivo -> Se pone su tecto en el document del editorCentral
+  if(!fileName.isEmpty()){
+    editorCentral->document()->setPlainText(fileName);
+  } else{
+    //sino , se pone que ningún archivo ha sido seleccionado
+    editorCentral->document()->setPlainText("Ningún archivo seleccionado.");
+  }
+
+  //Si el texto se ha modificado y quieres abrir otro documento , te preguntará si quieres
+  //abrir otro documento sin guardar antes el que estas editando.
+  if(txtModificado){
+    int a = QMessageBox::warning(this,
+        tr("Nuevo"),
+        tr("¿Estás seguro de querer borrar?"),
+        QMessageBox::Yes | QMessageBox::No);
+
+      if(a == QMessageBox::Yes){
+      abrirFichero(fileName);
+    } else if(a == QMessageBox::No){
+      return;
+    }
+  } else{
+    abrirFichero(fileName);
+  }
+
+
 }
 
 void VentanaPrincipal::slotGuardar(){
@@ -110,6 +210,7 @@ void VentanaPrincipal::slotGuardar(){
 
 void VentanaPrincipal::slotActualizarBarraEstado(){
 
+  txtModificado = true; //Control de cambio de texto.
   //numero lineas
   int numero = editorCentral->document()->lineCount(); //Sacar numero lineas
   QString cadena = QString::number(numero); //Pasar de int a string
@@ -124,20 +225,45 @@ void VentanaPrincipal::slotActualizarBarraEstado(){
 
 void VentanaPrincipal::slotNuevo(){
 
-    int r = QMessageBox::warning(this, tr("Aviso"),
-              tr("Quieres realmente crear un documento nuevo ?"),
-              QMessageBox::Yes | QMessageBox::Cancel);
+    //Al apretar en nuevo , lo que vamos a hacer es preguntar si quieres borrar el
+    //archvio actual o no
+    if(txtModificado){
+      int r = QMessageBox::warning(this,
+          tr("Nuevo"),
+          tr("¿Estás seguro de querer borrar?"),
+          QMessageBox::Yes | QMessageBox::No);
 
-              QString cadena3 = QString::number(r); //Pasar de int a string
-              ///ver que hay en r
-              editorCentral->setText("eo"+cadena3);
-///////////////NOS QUEDAMOS AQÍ , HAYQ EU VER COMO HACER EL IF
-              if(cadena3=="eo16384"){
-                editorCentral->document()->clear(); //limpiar el documento
-              } else {
+      if(r == QMessageBox::Yes){
+        editorCentral->document()->clear();
+        rutaArchivoActual->setText(" Ruta : ");
+      } else if(r == QMessageBox::No){
+        return;
+      }
+    } else {
+      editorCentral->document()->clear();
+      txtModificado = false;
+      return;
+    }
 
-              }
+}
 
-    //editorCentral->document()->clear(); //limpiar el documento
+//Metodo para editar el CloseEvent (cuando se cierra, ya sea por close() o por el aspa en ventana )
+void VentanaPrincipal::closeEvent(QCloseEvent *event){
 
+    int r = QMessageBox::warning(this,
+        tr("Nuevo"),
+        tr("¿Estás seguro de que quieres cerrar?"),
+        QMessageBox::Yes | QMessageBox::No);
+
+    if(r == QMessageBox::Yes){
+      event->accept();
+    } else if(r == QMessageBox::No){
+      event->ignore();
+      return;
+    }
+
+}
+
+void VentanaPrincipal::slotAbrirFicheroReciente(){
+    editorCentral->append(QString("Archivo reciente hueheue"));
 }
