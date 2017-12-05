@@ -301,6 +301,25 @@ void VentanaPrincipal::slotAbrirFicheroReciente(){
 void VentanaPrincipal::slotBuscar(){
 
   FindDialog *find = new FindDialog(this);
-  find->show();
+  //conectamos las señales de la clase de FIndDialog a nuestros slots personalizados
+  connect(find,SIGNAL(findNext(const QString &, Qt::CaseSensitivity )),
+                        this, SLOT(slotFindNext(const QString &, Qt::CaseSensitivity )));
 
+  connect(find,SIGNAL(findPrevious(const QString &, Qt::CaseSensitivity )),
+                        this, SLOT(slotFindPrevious(const QString &, Qt::CaseSensitivity )));
+  find->show();
+}
+
+void VentanaPrincipal::slotFindNext(const QString &str, Qt::CaseSensitivity cs){
+  editorCentral->setTextCursor(editorCentral->document()->find(str));
+/*
+  QTextDocument::FindFlags flags = 0;
+  if(cs == Qt::CaseSensitive)
+      flags = flags | QTextDocument::FindCaseSensitively;
+  editorCentral->find(str,flags);
+*/
+}
+
+void VentanaPrincipal::slotFindPrevious(const QString &str, Qt::CaseSensitivity cs){
+  editorCentral->setTextCursor(editorCentral->document()->find(str));
 }

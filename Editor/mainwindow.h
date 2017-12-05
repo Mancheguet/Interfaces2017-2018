@@ -60,7 +60,7 @@ private:
     void createMenus();
     void createToolBars();
     void createStatusBar();
-    void establecerFicheroActual(QString ruta);
+    void establecerFicheroActual(QString);
 
 private slots:
     void slotAbrir();
@@ -70,6 +70,8 @@ private slots:
     void closeEvent(QCloseEvent *event);
     void slotAbrirFicheroReciente();
     void slotBuscar();
+    void slotFindNext(const QString &, Qt::CaseSensitivity);
+    void slotFindPrevious(const QString &, Qt::CaseSensitivity);
 
 };
 
