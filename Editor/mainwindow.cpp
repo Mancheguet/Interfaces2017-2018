@@ -53,8 +53,8 @@ void VentanaPrincipal::createActions(){
 
   //Bucle de creación de acciones :
   for (int i = 0; i < MAX_RECENT_FILES; i++) {
-    accionesFicherosRecientes[i] = new QAction(QIcon("./nuevo.png"),"Reciente "+QString::number(i),this);
-    accionesFicherosRecientes[i] -> setVisible(true);
+    accionesFicherosRecientes[i] = new QAction(QIcon("./doc.png"),"",this);
+    accionesFicherosRecientes[i] -> setVisible(false);
     connect(accionesFicherosRecientes[i],SIGNAL(triggered()),
                           this, SLOT(slotAbrirFicheroReciente()));
   }
@@ -158,10 +158,24 @@ void VentanaPrincipal::establecerFicheroActual(QString ruta){
       i.remove();
   }
 
-  //pongo en el editor central el array
-  editorCentral->document()->setPlainText("");
-  for (int i = 0; i < ficherosRecientes.size(); i++) {
-    editorCentral->append(ficherosRecientes[i]);
+  //fique tots a visible false
+  for (int i = 0; i < MAX_RECENT_FILES; i++) {
+    accionesFicherosRecientes[i]->setVisible(false);
+  }
+
+  //ara, clava i fica a true les cosses
+  QMutableStringListIterator ii(ficherosRecientes);
+  int indice = 0;
+  while(ii.hasNext() && indice<MAX_RECENT_FILES){
+      QString ruta = ii.next();
+      QString nombreCorto = QFileInfo(ruta).fileName();
+      accionesFicherosRecientes[indice]->setText(nombreCorto);
+      accionesFicherosRecientes[indice]->setVisible(true);
+      //Le metememos por el data un qvariant que luego usaremos para abrir el archivo
+      accionesFicherosRecientes[indice]->setData(QVariant(ruta));
+
+      editorCentral->append(ruta);
+      indice++;
   }
 
 }
@@ -265,5 +279,13 @@ void VentanaPrincipal::closeEvent(QCloseEvent *event){
 }
 
 void VentanaPrincipal::slotAbrirFicheroReciente(){
-    editorCentral->append(QString("Archivo reciente hueheue"));
+  
+    //////////////////////////////////////////////////////////////////////////
+    /////////// CASTING DE QOBJECT A QACTION !!!!!!!!!!!!!!!! ////////////////
+    //////////////////////////////////////////////////////////////////////////
+    QAction * culpable = qobject_cast<QAction *>(sender());
+    //Recuperamos en una QSTRING la ruta del archivo
+    QString rutaArchivo = culpable->data().toString();
+    abrirFichero(rutaArchivo);
+
 }
