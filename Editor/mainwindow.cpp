@@ -300,7 +300,7 @@ void VentanaPrincipal::slotAbrirFicheroReciente(){
 
 void VentanaPrincipal::slotBuscar(){
 
-  FindDialog *find = new FindDialog;
+  FindDialog *find = new FindDialog(this);
   find->show();
 
 }
