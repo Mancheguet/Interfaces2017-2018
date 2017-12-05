@@ -46,6 +46,11 @@ void VentanaPrincipal::createActions(){
   connect(accionGuardar,SIGNAL(triggered()),this, SLOT(slotGuardar()));
   accionGuardar->setShortcut(tr("Ctrl+s"));
 
+  //Buscar
+  accionBuscar = new QAction(QIcon("./search.png"),"&Buscar",this);
+  connect(accionBuscar,SIGNAL(triggered()),this, SLOT(slotBuscar()));
+  accionBuscar->setShortcut(tr("Ctrl+f"));
+
   //Nuevo
   accionNuevo = new QAction(QIcon("./nuevo.png"),"&Nuevo",this);
   connect(accionNuevo,SIGNAL(triggered()),this, SLOT(slotNuevo()));
@@ -69,7 +74,10 @@ void VentanaPrincipal::createMenus(){
   fileMenu->addAction(accionSalir); //Añado al menuArchivo la acciuon Salir
   fileMenu->addAction(accionAbrir); //añadir abrir
   fileMenu->addAction(accionGuardar); //añadir guardar
-  fileMenu->addAction(accionNuevo); //añadir nuevo
+  fileMenu->addAction(accionNuevo); //añadir nuevo;
+
+  editMenu = menuBar()->addMenu("&Editar"); //Añado a la Barra de menus la opción Editar
+  editMenu->addAction(accionBuscar);
 
   for (int i = 0; i < MAX_RECENT_FILES; i++) {
     fileMenu->addAction(accionesFicherosRecientes[i]);
@@ -279,7 +287,7 @@ void VentanaPrincipal::closeEvent(QCloseEvent *event){
 }
 
 void VentanaPrincipal::slotAbrirFicheroReciente(){
-  
+
     //////////////////////////////////////////////////////////////////////////
     /////////// CASTING DE QOBJECT A QACTION !!!!!!!!!!!!!!!! ////////////////
     //////////////////////////////////////////////////////////////////////////
@@ -287,5 +295,12 @@ void VentanaPrincipal::slotAbrirFicheroReciente(){
     //Recuperamos en una QSTRING la ruta del archivo
     QString rutaArchivo = culpable->data().toString();
     abrirFichero(rutaArchivo);
+
+}
+
+void VentanaPrincipal::slotBuscar(){
+
+  FindDialog *find = new FindDialog;
+  find->show();
 
 }

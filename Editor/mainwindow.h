@@ -19,6 +19,8 @@
 
 #include <QCloseEvent>
 #include <QMutableStringListIterator>
+//incluir la parte del finddialogo!!!!
+#include "finddialog.h"
 
 class VentanaPrincipal : public QMainWindow
 {
@@ -36,8 +38,10 @@ private:
     QAction *accionAbrir;
     QAction *accionNuevo;
     QAction * accionesFicherosRecientes[MAX_RECENT_FILES];
+    QAction * accionBuscar;
 
     QMenu *fileMenu;
+    QMenu *editMenu;
 
     bool txtModificado;
 
@@ -65,6 +69,7 @@ private slots:
     void slotNuevo();
     void closeEvent(QCloseEvent *event);
     void slotAbrirFicheroReciente();
+    void slotBuscar();
 
 };
 
