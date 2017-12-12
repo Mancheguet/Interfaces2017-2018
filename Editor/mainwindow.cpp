@@ -57,7 +57,7 @@ void VentanaPrincipal::createActions(){
   accionNuevo->setShortcut(tr("Ctrl+n"));
 
   //DesReHacer
-  accionDesReHacer = new QAction(QIcon("./nuevo.png"),"&DesReHacer",this);
+  accionDesReHacer = new QAction(QIcon("./undo.png"),"&DesReHacer",this);
   connect(accionDesReHacer,SIGNAL(triggered()),this, SLOT(slotDesRehacer()));
   accionDesReHacer->setShortcut(tr("Ctrl+z"));
 
