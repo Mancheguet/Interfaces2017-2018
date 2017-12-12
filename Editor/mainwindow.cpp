@@ -56,6 +56,11 @@ void VentanaPrincipal::createActions(){
   connect(accionNuevo,SIGNAL(triggered()),this, SLOT(slotNuevo()));
   accionNuevo->setShortcut(tr("Ctrl+n"));
 
+  //DesReHacer
+  accionDesReHacer = new QAction(QIcon("./nuevo.png"),"&DesReHacer",this);
+  connect(accionDesReHacer,SIGNAL(triggered()),this, SLOT(slotDesRehacer()));
+  accionDesReHacer->setShortcut(tr("Ctrl+z"));
+
   //Bucle de creación de acciones :
   for (int i = 0; i < MAX_RECENT_FILES; i++) {
     accionesFicherosRecientes[i] = new QAction(QIcon("./doc.png"),"",this);
@@ -78,6 +83,7 @@ void VentanaPrincipal::createMenus(){
 
   editMenu = menuBar()->addMenu("&Editar"); //Añado a la Barra de menus la opción Editar
   editMenu->addAction(accionBuscar);
+  editMenu->addAction(accionDesReHacer);
 
   for (int i = 0; i < MAX_RECENT_FILES; i++) {
     fileMenu->addAction(accionesFicherosRecientes[i]);
@@ -322,4 +328,10 @@ void VentanaPrincipal::slotFindNext(const QString &str, Qt::CaseSensitivity cs){
 
 void VentanaPrincipal::slotFindPrevious(const QString &str, Qt::CaseSensitivity cs){
   editorCentral->setTextCursor(editorCentral->document()->find(str));
+}
+
+void VentanaPrincipal::slotDesRehacer(){
+  DialogoDeshacer *deshacer = new DialogoDeshacer(this);
+  deshacer->editor=editorCentral;
+  deshacer->show();
 }

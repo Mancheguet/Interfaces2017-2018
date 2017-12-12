@@ -21,6 +21,7 @@
 #include <QMutableStringListIterator>
 //incluir la parte del finddialogo!!!!
 #include "finddialog.h"
+#include "DialogoDeshacer.h"
 
 class VentanaPrincipal : public QMainWindow
 {
@@ -39,6 +40,7 @@ private:
     QAction *accionNuevo;
     QAction * accionesFicherosRecientes[MAX_RECENT_FILES];
     QAction * accionBuscar;
+    QAction *accionDesReHacer;
 
     QMenu *fileMenu;
     QMenu *editMenu;
@@ -72,6 +74,7 @@ private slots:
     void slotBuscar();
     void slotFindNext(const QString &, Qt::CaseSensitivity);
     void slotFindPrevious(const QString &, Qt::CaseSensitivity);
+    void slotDesRehacer();
 
 };
 
