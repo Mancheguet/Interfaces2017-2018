@@ -50,16 +50,20 @@ OBJECTS_DIR   = ./
 
 SOURCES       = DialogoDeshacer.cpp \
 		finddialog.cpp \
+		IntroducirPalabra.cpp \
 		main.cpp \
 		mainwindow.cpp moc_DialogoDeshacer.cpp \
 		moc_finddialog.cpp \
+		moc_IntroducirPalabra.cpp \
 		moc_mainwindow.cpp
 OBJECTS       = DialogoDeshacer.o \
 		finddialog.o \
+		IntroducirPalabra.o \
 		main.o \
 		mainwindow.o \
 		moc_DialogoDeshacer.o \
 		moc_finddialog.o \
+		moc_IntroducirPalabra.o \
 		moc_mainwindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -127,8 +131,10 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		Editor.pro DialogoDeshacer.h \
 		finddialog.h \
+		IntroducirPalabra.h \
 		mainwindow.h DialogoDeshacer.cpp \
 		finddialog.cpp \
+		IntroducirPalabra.cpp \
 		main.cpp \
 		mainwindow.cpp
 QMAKE_TARGET  = Editor
@@ -139,7 +145,7 @@ TARGET        = Editor
 first: all
 ####### Build rules
 
-$(TARGET): ui_DialogoDeshacer.h $(OBJECTS)  
+$(TARGET): ui_DialogoDeshacer.h ui_IntroducirPalabra.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: Editor.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -293,9 +299,9 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents DialogoDeshacer.h finddialog.h mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents DialogoDeshacer.cpp finddialog.cpp main.cpp mainwindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents DialogoDeshacer.ui $(DISTDIR)/
+	$(COPY_FILE) --parents DialogoDeshacer.h finddialog.h IntroducirPalabra.h mainwindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents DialogoDeshacer.cpp finddialog.cpp IntroducirPalabra.cpp main.cpp mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents DialogoDeshacer.ui IntroducirPalabra.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -321,9 +327,9 @@ benchmark: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_DialogoDeshacer.cpp moc_finddialog.cpp moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_DialogoDeshacer.cpp moc_finddialog.cpp moc_IntroducirPalabra.cpp moc_mainwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_DialogoDeshacer.cpp moc_finddialog.cpp moc_mainwindow.cpp
+	-$(DEL_FILE) moc_DialogoDeshacer.cpp moc_finddialog.cpp moc_IntroducirPalabra.cpp moc_mainwindow.cpp
 moc_DialogoDeshacer.cpp: ui_DialogoDeshacer.h \
 		DialogoDeshacer.h \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
@@ -333,21 +339,32 @@ moc_finddialog.cpp: finddialog.h \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/vesprada/Documents/Interfaces2017-2018/Editor -I/home/vesprada/Documents/Interfaces2017-2018/Editor -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include finddialog.h -o moc_finddialog.cpp
 
+moc_IntroducirPalabra.cpp: ui_IntroducirPalabra.h \
+		IntroducirPalabra.h \
+		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/vesprada/Documents/Interfaces2017-2018/Editor -I/home/vesprada/Documents/Interfaces2017-2018/Editor -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include IntroducirPalabra.h -o moc_IntroducirPalabra.cpp
+
 moc_mainwindow.cpp: finddialog.h \
 		DialogoDeshacer.h \
 		ui_DialogoDeshacer.h \
+		IntroducirPalabra.h \
+		ui_IntroducirPalabra.h \
 		mainwindow.h \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/vesprada/Documents/Interfaces2017-2018/Editor -I/home/vesprada/Documents/Interfaces2017-2018/Editor -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_DialogoDeshacer.h
+compiler_uic_make_all: ui_DialogoDeshacer.h ui_IntroducirPalabra.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_DialogoDeshacer.h
+	-$(DEL_FILE) ui_DialogoDeshacer.h ui_IntroducirPalabra.h
 ui_DialogoDeshacer.h: DialogoDeshacer.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic DialogoDeshacer.ui -o ui_DialogoDeshacer.h
+
+ui_IntroducirPalabra.h: IntroducirPalabra.ui \
+		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic IntroducirPalabra.ui -o ui_IntroducirPalabra.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -366,16 +383,28 @@ DialogoDeshacer.o: DialogoDeshacer.cpp DialogoDeshacer.h \
 finddialog.o: finddialog.cpp finddialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o finddialog.o finddialog.cpp
 
-main.o: main.cpp mainwindow.h \
+IntroducirPalabra.o: IntroducirPalabra.cpp IntroducirPalabra.h \
+		ui_IntroducirPalabra.h \
+		mainwindow.h \
 		finddialog.h \
 		DialogoDeshacer.h \
 		ui_DialogoDeshacer.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o IntroducirPalabra.o IntroducirPalabra.cpp
+
+main.o: main.cpp mainwindow.h \
+		finddialog.h \
+		DialogoDeshacer.h \
+		ui_DialogoDeshacer.h \
+		IntroducirPalabra.h \
+		ui_IntroducirPalabra.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.h \
 		finddialog.h \
 		DialogoDeshacer.h \
-		ui_DialogoDeshacer.h
+		ui_DialogoDeshacer.h \
+		IntroducirPalabra.h \
+		ui_IntroducirPalabra.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 moc_DialogoDeshacer.o: moc_DialogoDeshacer.cpp 
@@ -383,6 +412,9 @@ moc_DialogoDeshacer.o: moc_DialogoDeshacer.cpp
 
 moc_finddialog.o: moc_finddialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_finddialog.o moc_finddialog.cpp
+
+moc_IntroducirPalabra.o: moc_IntroducirPalabra.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_IntroducirPalabra.o moc_IntroducirPalabra.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

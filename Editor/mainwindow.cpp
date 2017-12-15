@@ -61,6 +61,11 @@ void VentanaPrincipal::createActions(){
   connect(accionDesReHacer,SIGNAL(triggered()),this, SLOT(slotDesRehacer()));
   accionDesReHacer->setShortcut(tr("Ctrl+z"));
 
+  //Añadir
+  accionAnadir = new QAction(QIcon("./nuevo.png"),"Añadi&r",this);
+  connect(accionAnadir,SIGNAL(triggered()),this, SLOT(slotAnadir()));
+  accionAnadir->setShortcut(tr("Ctrl+r"));
+
   //Bucle de creación de acciones :
   for (int i = 0; i < MAX_RECENT_FILES; i++) {
     accionesFicherosRecientes[i] = new QAction(QIcon("./doc.png"),"",this);
@@ -81,22 +86,31 @@ void VentanaPrincipal::createMenus(){
   fileMenu->addAction(accionGuardar); //añadir guardar
   fileMenu->addAction(accionNuevo); //añadir nuevo;
 
-  editMenu = menuBar()->addMenu("&Editar"); //Añado a la Barra de menus la opción Editar
-  editMenu->addAction(accionBuscar);
-  editMenu->addAction(accionDesReHacer);
-
   for (int i = 0; i < MAX_RECENT_FILES; i++) {
     fileMenu->addAction(accionesFicherosRecientes[i]);
   }
 
+  editMenu = menuBar()->addMenu("&Editar"); //Añado a la Barra de menus la opción Editar
+  editMenu->addAction(accionBuscar);
+  editMenu->addAction(accionDesReHacer);
+  editMenu->addAction(accionAnadir);
+
+  palabrasMenu = menuBar()->addMenu("&Palabras");
+
+  //Menú Contextual
+  createContextualMenu();
+
+  editorCentral->setContextMenuPolicy(Qt::ActionsContextMenu); //Politica de ejecución , es una constante ... añadir simepre
+
+}
+
+void VentanaPrincipal::createContextualMenu(){
   //Menú Contextual
   editorCentral->addAction(accionSalir); //añadir al editor central con clic derecho el menu la opcin de salir
   editorCentral->addAction(accionAbrir); //añadir abrir
   editorCentral->addAction(accionGuardar); //añadir guardar
   editorCentral->addAction(accionNuevo); //añadir nuevo
-
-  editorCentral->setContextMenuPolicy(Qt::ActionsContextMenu); //Politica de ejecución , es una constante ... añadir simepre
-
+  editorCentral->addAction(accionAnadir); //añadir Añadir
 }
 
 void VentanaPrincipal::createToolBars(){
@@ -192,6 +206,29 @@ void VentanaPrincipal::establecerFicheroActual(QString ruta){
       indice++;
   }
 
+}
+
+void VentanaPrincipal::actualizarPalabras(){
+
+  //editorCentral->document()->setPlainText(QString::number(palabrasIntroducidas.size()));
+  //editorCentral->document()->setPlainText("Dins de actualizarPalabras");
+  if(palabrasIntroducidas.size()>0){
+    palabrasMenu->clear();
+
+    for (int i = 0; i < palabrasIntroducidas.size(); i++) {
+
+      QString palabraMomento = QFileInfo(palabrasIntroducidas[i]).fileName();
+      QAction *accionPalabra = new QAction(QIcon("./doc.png"),palabraMomento,this);
+      accionPalabra->setData(QVariant(palabraMomento));
+      connect(accionPalabra,SIGNAL(triggered()),
+                            this, SLOT(slotAccionPalabra()));
+      palabrasMenu->addAction(accionPalabra);
+      if((palabrasIntroducidas.size()-1)==i){
+        editorCentral->addAction(accionPalabra);
+      }
+
+    }
+  }
 }
 
 /////////////////
@@ -334,4 +371,23 @@ void VentanaPrincipal::slotDesRehacer(){
   DialogoDeshacer *deshacer = new DialogoDeshacer(this);
   deshacer->editor=editorCentral;
   deshacer->show();
+}
+
+void VentanaPrincipal::slotAnadir(){
+
+  IntroducirPalabra *introducirP = new IntroducirPalabra(this);
+  introducirP->pIntroducidasLista=&palabrasIntroducidas;
+  //introducirP->editor=editorCentral;
+  introducirP->exec();
+  actualizarPalabras();
+
+}
+
+void VentanaPrincipal::slotAccionPalabra(){
+
+  QAction * culpable = qobject_cast<QAction *>(sender());
+  QString palabraAnadir = culpable->data().toString();
+  editorCentral->textCursor().insertText(palabraAnadir);
+  //editorCentral->append(palabraAnadir);
+
 }

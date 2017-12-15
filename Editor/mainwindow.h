@@ -22,6 +22,7 @@
 //incluir la parte del finddialogo!!!!
 #include "finddialog.h"
 #include "DialogoDeshacer.h"
+#include "IntroducirPalabra.h"
 
 class VentanaPrincipal : public QMainWindow
 {
@@ -38,12 +39,14 @@ private:
     QAction *accionGuardar;
     QAction *accionAbrir;
     QAction *accionNuevo;
-    QAction * accionesFicherosRecientes[MAX_RECENT_FILES];
-    QAction * accionBuscar;
+    QAction *accionesFicherosRecientes[MAX_RECENT_FILES];
+    QAction *accionBuscar;
     QAction *accionDesReHacer;
+    QAction *accionAnadir;
 
     QMenu *fileMenu;
     QMenu *editMenu;
+    QMenu *palabrasMenu;
 
     bool txtModificado;
 
@@ -57,12 +60,15 @@ private:
     bool abrirFichero(QString nombre);
 
     QStringList ficherosRecientes;
+    QStringList palabrasIntroducidas;
 
     void createActions();
     void createMenus();
     void createToolBars();
     void createStatusBar();
     void establecerFicheroActual(QString);
+    void actualizarPalabras();
+    void createContextualMenu();
 
 private slots:
     void slotAbrir();
@@ -75,6 +81,8 @@ private slots:
     void slotFindNext(const QString &, Qt::CaseSensitivity);
     void slotFindPrevious(const QString &, Qt::CaseSensitivity);
     void slotDesRehacer();
+    void slotAnadir();
+    void slotAccionPalabra();
 
 };
 
