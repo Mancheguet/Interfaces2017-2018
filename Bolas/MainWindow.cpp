@@ -2,23 +2,26 @@
 
 MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow (parent, flags){
 
-    //dar tamaño a la pantalla main.
+    //dar tamaño a la pantalla principal
     resize(800, 600);
 
+    //inicio el tmeporizador para hacer que las bolas tengan la animación
     temporizador = new QTimer();
     connect(temporizador, SIGNAL(timeout()),
             this, SLOT(slotRepintar()));
-    temporizador->setInterval(100);
-    temporizador->setSingleShot(false);
+    temporizador->setInterval(100); //intervalo en milisegundos
+    temporizador->setSingleShot(false); //para que no lo haga solo una vez...
     temporizador->start();
 
     inicializarBolas();
+
 }
 
 
-///////////
-//METHODS//
-///////////
+///////////////////////////////////
+///////////// METHODS /////////////
+///////////////////////////////////
+
 void MainWindow::inicializarBolas(){
 
     for (int i=0; i<10; i++) {
@@ -57,13 +60,13 @@ void MainWindow::paintEvent(QPaintEvent *event){
 
 
 
-///////////
-///SLOTS///
-///////////
+////////////////////////////////
+///////////// SLOTS ////////////
+////////////////////////////////
 
 void MainWindow::slotRepintar(){
 
-    // update() es un slot.
+    // update() es un slot para refrescar la pantalla
     update();
 
     float limiteDerecho = this->width();
@@ -97,4 +100,5 @@ void MainWindow::slotRepintar(){
      * if (abajo) posY += velY;
      * else posY -= velY;
      */
+
 }

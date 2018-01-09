@@ -4,6 +4,8 @@
 #include <QApplication>
 #include <QMainWindow>
 
+#include <math.h>
+
 class Bola {
 
     public :

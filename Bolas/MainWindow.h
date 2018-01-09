@@ -18,15 +18,17 @@ class MainWindow : public QMainWindow{
 
         MainWindow (QWidget *parent = 0, Qt::WindowFlags flags = 0);
 
+        QTimer *temporizador;
+        
+        QVector<Bola *> bolas;
+
         void paintEvent (QPaintEvent *event);
         void inicializarBolas();
 
-        QTimer *temporizador;
-
-        QVector<Bola *> bolas;
-
     public slots:
+
         void slotRepintar();
+
 };
 
 #endif
