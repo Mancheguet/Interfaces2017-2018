@@ -1,6 +1,9 @@
 #ifndef _BOLA_H
 #define _BOLA_H
 
+#include <QApplication>
+#include <QMainWindow>
+
 class Bola {
 
     public :

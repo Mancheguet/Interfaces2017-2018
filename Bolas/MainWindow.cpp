@@ -1,10 +1,4 @@
-#include <QtGui>
-
-//#include <math.h>
-
 #include "MainWindow.h"
-
-#include <QPainter>
 
 MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow (parent, flags){
 
