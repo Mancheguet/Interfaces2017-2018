@@ -5,8 +5,7 @@ MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow (pa
     //dar tamaño a la pantalla principal
     resize(800, 600);
 
-    //control if
-    bool control = true;
+    //
 
     //inicio el tmeporizador para hacer que las bolas tengan la animación
     temporizador = new QTimer();
