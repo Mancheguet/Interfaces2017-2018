@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow (pa
     temporizador = new QTimer();
     connect(temporizador, SIGNAL(timeout()),
             this, SLOT(slotRepintar()));
-    temporizador->setInterval(100); //intervalo en milisegundos
+    temporizador->setInterval(20); //intervalo en milisegundos
     temporizador->setSingleShot(false); //para que no lo haga solo una vez...
     temporizador->start();
 
@@ -24,14 +24,14 @@ MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow (pa
 
 void MainWindow::inicializarBolas(){
 
-    for (int i=0; i<10; i++) {
+    for (int i=0; i<100; i++) {
       //Creo la bola y le doy una velocidad de inicio y posición
         //posición en la que salen y velocidad en la que salen
         bolas.append(new Bola(rand()%(width()-100),
                               rand()%(height()-20),
-                              (float)(rand()%100)/5-1,
-                              (float)(rand()%100)/5-1,
-                              30)); //Este valor es el tamaño de las bolas.
+                              (float)(rand()%100)/25-1,
+                              (float)(rand()%100)/25-1,
+                              50)); //Este valor es el tamaño de las bolas.
     }
 }
 
@@ -43,9 +43,21 @@ void MainWindow::paintEvent(QPaintEvent *event){
     Qt::BrushStyle style = Qt::SolidPattern;
     QBrush brush(colorBola, style);
     pintor.setBrush(brush);
-    foreach (Bola *unaBola, bolas){
 
-        pintor.drawEllipse (unaBola->posX, unaBola->posY, unaBola->tamanyo, unaBola->tamanyo);
+    foreach (Bola *unaBola, bolas){
+        //LO MISMO PERO CON RECTANGULOS !!!!
+        //puedo poner también las dos cosas a la vez :)
+        //pintor.fillRect(unaBola->posX, unaBola->posY, unaBola->tamanyo, unaBola->tamanyo, QColor(QString("red")));
+
+        /* Meter una imagen !!!! */
+          QPixmap pixmap1("./img/doge.png");
+          //ver tamaño real dónde esta el doge
+          //pintor.drawEllipse (unaBola->posX, unaBola->posY, unaBola->tamanyo, unaBola->tamanyo);
+          pintor.drawPixmap(unaBola->posX, unaBola->posY, unaBola->tamanyo, unaBola->tamanyo, pixmap1);
+        /**/
+        /////////// parte normal de bolas /////////////
+        //pintor.drawEllipse (unaBola->posX, unaBola->posY, unaBola->tamanyo, unaBola->tamanyo);
+
     }
 
     /* PINTADO DE RECTANGULO,...

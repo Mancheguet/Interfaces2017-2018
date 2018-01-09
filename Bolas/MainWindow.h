@@ -8,6 +8,10 @@
 #include <QVector>
 #include <QPainter>
 
+//Prueba de imagenes
+#include <QPixmap>
+//
+
 #include <Bola.h>
 
 class MainWindow : public QMainWindow{
@@ -19,7 +23,7 @@ class MainWindow : public QMainWindow{
         MainWindow (QWidget *parent = 0, Qt::WindowFlags flags = 0);
 
         QTimer *temporizador;
-        
+
         QVector<Bola *> bolas;
 
         void paintEvent (QPaintEvent *event);
