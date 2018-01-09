@@ -5,6 +5,9 @@ MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow (pa
     //dar tamaño a la pantalla principal
     resize(800, 600);
 
+    //control if
+    bool control = true;
+
     //inicio el tmeporizador para hacer que las bolas tengan la animación
     temporizador = new QTimer();
     connect(temporizador, SIGNAL(timeout()),
@@ -50,11 +53,24 @@ void MainWindow::paintEvent(QPaintEvent *event){
         //pintor.fillRect(unaBola->posX, unaBola->posY, unaBola->tamanyo, unaBola->tamanyo, QColor(QString("red")));
 
         /* Meter una imagen !!!! */
-          QPixmap pixmap1("./img/doge.png");
+          QPixmap pixmap1("./img/doge.png"); //declaro la imagen , y dónde está
           //ver tamaño real dónde esta el doge
           //pintor.drawEllipse (unaBola->posX, unaBola->posY, unaBola->tamanyo, unaBola->tamanyo);
           pintor.drawPixmap(unaBola->posX, unaBola->posY, unaBola->tamanyo, unaBola->tamanyo, pixmap1);
-        /**/
+        /* */
+
+        /* añadir gif !!!!
+
+        QMovie *movie=new QMovie("./img/pizza.gif");
+
+        // Play GIF
+        QLabel* label = new QLabel(this);
+        label->setGeometry(30,30,30,30);
+        label->setMovie(movie);
+        movie->start();
+
+         */
+
         /////////// parte normal de bolas /////////////
         //pintor.drawEllipse (unaBola->posX, unaBola->posY, unaBola->tamanyo, unaBola->tamanyo);
 
