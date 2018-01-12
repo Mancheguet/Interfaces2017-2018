@@ -7,17 +7,12 @@
 #include <QTimer>
 #include <QVector>
 #include <QPainter>
-#include <QAction>
-//Incluir estas dos para lo del menu (QMENU - QMENUBAR)
-#include <QMenu>
-#include <QMenuBar>
 
 //Prueba de imagenes
 #include <QPixmap>
 //
 
 #include <Bola.h>
-#include <Dialog.h>
 
 class MainWindow : public QMainWindow{
 
@@ -31,23 +26,12 @@ class MainWindow : public QMainWindow{
 
         QVector<Bola *> bolas;
 
-        QAction *accionSalir;
-        QAction *accionDialog;
-
-        QMenu *fileMenu;
-
-        Bola *bolaJugador;
-
         void paintEvent (QPaintEvent *event);
         void inicializarBolas();
-        void createActions();
-        void createMenus();
 
     public slots:
 
         void slotRepintar();
-        void slotAbirDialog();
-        void keyPressEvent(QKeyEvent *event);
 
 };
 

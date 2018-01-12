@@ -10,14 +10,13 @@ class Bola {
 
     public :
 
-        static int diametro;
-        float posX, posY, velX, velY;
+        float posX, posY, velX, velY, tamanyo;
 
         Bola();
-        Bola(float x, float y, float vx, float vy);
+
+        Bola(float x, float y, float vx, float vy, float tamanyo);
 
         void mover(float anch, float alt);
-        void pintar(QPainter& pintor);
 
 };
 

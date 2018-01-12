@@ -2,12 +2,10 @@
 
 using namespace std;
 
-int Bola::diametro;
-
 Bola::Bola(){}
 
-Bola::Bola(float x, float y, float vx, float vy):
-                          posX(x), posY(y), velX(vx), velY(vy) {
+Bola::Bola(float x, float y, float vx, float vy, float tam):
+                          posX(x), posY(y), velX(vx), velY(vy), tamanyo(tam) {
 
     /* Ahora tenemos esto puesto diretcamente en el constructor y no hace falta ponerlo aquí */
     /*
@@ -15,26 +13,19 @@ Bola::Bola(float x, float y, float vx, float vy):
     posY = y;
     velX = vx;
     velY = vy;
+    tamanyo = tam;
     */
 
 }
 
 void Bola::mover(float anchura, float altura){
 
-    if (posX > (anchura-Bola::diametro)) velX = -fabs(velX);
+    if (posX > (anchura-tamanyo)) velX = -fabs(velX);
     if (posX < 0) velX = fabs(velX);
-    if (posY > (altura-Bola::diametro)) velY = -fabs(velY);
+    if (posY > (altura-tamanyo)) velY = -fabs(velY);
     if (posY < 0) velY = fabs(velY);
 
     posX += velX;
     posY += velY;
 
 }
-/*
-void Bola::pintar(QPainter& pinto){
-
-  pintor.setBrush(color);
-  pintor.drawEllipse(posX,posY,diametro,diametro);
-
-}
-*/

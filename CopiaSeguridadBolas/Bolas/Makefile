@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -m64 -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -m64 -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64
+INCPATH       = -I. -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64
 QMAKE         = /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -49,15 +49,11 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = Bola.cpp \
-		Dialog.cpp \
 		main.cpp \
-		MainWindow.cpp moc_Dialog.cpp \
-		moc_MainWindow.cpp
+		MainWindow.cpp moc_MainWindow.cpp
 OBJECTS       = Bola.o \
-		Dialog.o \
 		main.o \
 		MainWindow.o \
-		moc_Dialog.o \
 		moc_MainWindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -124,9 +120,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		Bolas.pro Bola.h \
-		Dialog.h \
 		MainWindow.h Bola.cpp \
-		Dialog.cpp \
 		main.cpp \
 		MainWindow.cpp
 QMAKE_TARGET  = Bolas
@@ -137,7 +131,7 @@ TARGET        = Bolas
 first: all
 ####### Build rules
 
-$(TARGET): ui_Dialog.h $(OBJECTS)  
+$(TARGET):  $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: Bolas.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -291,9 +285,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents Bola.h Dialog.h MainWindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents Bola.cpp Dialog.cpp main.cpp MainWindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Dialog.ui $(DISTDIR)/
+	$(COPY_FILE) --parents Bola.h MainWindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents Bola.cpp main.cpp MainWindow.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -319,61 +312,38 @@ benchmark: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_Dialog.cpp moc_MainWindow.cpp
+compiler_moc_header_make_all: moc_MainWindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_Dialog.cpp moc_MainWindow.cpp
-moc_Dialog.cpp: ui_Dialog.h \
-		Dialog.h \
-		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include Dialog.h -o moc_Dialog.cpp
-
+	-$(DEL_FILE) moc_MainWindow.cpp
 moc_MainWindow.cpp: Bola.h \
-		Dialog.h \
-		ui_Dialog.h \
 		MainWindow.h \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MainWindow.h -o moc_MainWindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_Dialog.h
+compiler_uic_make_all:
 compiler_uic_clean:
-	-$(DEL_FILE) ui_Dialog.h
-ui_Dialog.h: Dialog.ui \
-		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
-	/usr/lib/x86_64-linux-gnu/qt5/bin/uic Dialog.ui -o ui_Dialog.h
-
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
 compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_header_clean compiler_uic_clean 
+compiler_clean: compiler_moc_header_clean 
 
 ####### Compile
 
 Bola.o: Bola.cpp Bola.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Bola.o Bola.cpp
 
-Dialog.o: Dialog.cpp Dialog.h \
-		ui_Dialog.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Dialog.o Dialog.cpp
-
 main.o: main.cpp MainWindow.h \
-		Bola.h \
-		Dialog.h \
-		ui_Dialog.h
+		Bola.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 MainWindow.o: MainWindow.cpp MainWindow.h \
-		Bola.h \
-		Dialog.h \
-		ui_Dialog.h
+		Bola.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o MainWindow.cpp
-
-moc_Dialog.o: moc_Dialog.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Dialog.o moc_Dialog.cpp
 
 moc_MainWindow.o: moc_MainWindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MainWindow.o moc_MainWindow.cpp

@@ -2,6 +2,7 @@
 
 MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow (parent, flags){
 
+    Bola::diametro=60;
     //dar tamaño a la pantalla principal
     resize(800, 600);
 
@@ -16,6 +17,10 @@ MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow (pa
     temporizador->start();
 
     inicializarBolas();
+
+    //llamar a los dos metodos de creación
+    createActions();
+    createMenus();
 
 }
 
@@ -32,9 +37,13 @@ void MainWindow::inicializarBolas(){
         bolas.append(new Bola(rand()%(width()-100),
                               rand()%(height()-20),
                               (float)(rand()%100)/25-1,
-                              (float)(rand()%100)/25-1,
-                              50)); //Este valor es el tamaño de las bolas.
+                              (float)(rand()%100)/25-1));
     }
+
+    //Crear bola jugador
+    bolaJugador = new Bola(rand()%(width()-100),rand()%(height()-20),
+    (float)(rand()%100)/25-1,(float)(rand()%100)/25-1);
+
 }
 
 void MainWindow::paintEvent(QPaintEvent *event){
@@ -55,34 +64,45 @@ void MainWindow::paintEvent(QPaintEvent *event){
           QPixmap pixmap1("./img/doge.png"); //declaro la imagen , y dónde está
           //ver tamaño real dónde esta el doge
           //pintor.drawEllipse (unaBola->posX, unaBola->posY, unaBola->tamanyo, unaBola->tamanyo);
-          pintor.drawPixmap(unaBola->posX, unaBola->posY, unaBola->tamanyo, unaBola->tamanyo, pixmap1);
-        /* */
-
-        /* añadir gif !!!!
-
-        QMovie *movie=new QMovie("./img/pizza.gif");
-
-        // Play GIF
-        QLabel* label = new QLabel(this);
-        label->setGeometry(30,30,30,30);
-        label->setMovie(movie);
-        movie->start();
-
-         */
-
-        /////////// parte normal de bolas /////////////
-        //pintor.drawEllipse (unaBola->posX, unaBola->posY, unaBola->tamanyo, unaBola->tamanyo);
+          pintor.drawPixmap(unaBola->posX, unaBola->posY, Bola::diametro, Bola::diametro, pixmap1);
 
     }
 
-    /* PINTADO DE RECTANGULO,...
-     * QUE SE ENSANCHA CON CAMBIO TAMAÑO VENTANA:
-     *
-     * static int anchura = 50;
-     * QPainter pintor(this);
-     * pintor.fillRect(10, 10, anchura, 100, QColor(QString("red")));
-     * anchura += 5;
-     */
+    //Pintamos al jugador
+    //QPixmap pixmap2("./img/cat.png");
+    //pintor.drawPixmap(bolaJugador->posX, bolaJugador->posY, bolaJugador->tamanyo, bolaJugador->tamanyo, pixmap2);
+    pintor.drawEllipse( bolaJugador->posX, bolaJugador->posY, Bola::diametro, Bola::diametro );
+
+    //le pones el Foco en el mainWindow
+    setFocus();
+
+}
+
+void MainWindow::createActions(){
+
+  //Sección MENÚ
+  //Crear el QAction de Salir para poder luego ya , implementarlo en nuestro menú
+  accionSalir = new QAction(QIcon("./img/exit.png"),"&Salir",this); //Crea la accionSalir con el nombre Salir y la ventana principal
+  //Conectar la señal accionsalir con la acción que va a realizar (signal trigger es la opción de "disparado")
+  connect(accionSalir,SIGNAL(triggered()),this, SLOT(close()));
+  accionSalir->setShortcut(tr("Ctrl+q"));
+
+  //Opcion llamar al nuevo dialogo
+  accionDialog = new QAction(QIcon("./img/nuevo.png"), "Información", this);
+  connect(accionDialog, SIGNAL(triggered()), this, SLOT(slotAbirDialog()));
+  accionDialog->setShortcut(tr("Ctrl+i"));
+
+}
+
+
+void MainWindow::createMenus(){
+
+  //Por defecto  QMainWindow , ya tiene una Barra de menú , tenemos que añadir un objeto a la barra de menu
+  //I Luego , agregar al Menu , las QAction
+  fileMenu = menuBar()->addMenu("&Archivo"); //Añado a la Barra de menus la opción Archivo
+  fileMenu->addAction(accionDialog);
+  fileMenu->addAction(accionSalir); //Añado al menuArchivo la acciuon Salir
+
 }
 
 
@@ -102,30 +122,41 @@ void MainWindow::slotRepintar(){
     for (int i = 0; i < bolas.size(); i++){
 
         bolas[i]->mover(limiteDerecho, limiteInferior);
+
     }
 
+    bolaJugador->mover(limiteDerecho, limiteInferior);
 
-    /*ANTES DE PASARLO A CLASE BOLA
-    posX += velX;
-    posY += velY;
+}
 
-    if (posX > (this->width()-anchura)) velX = -fabs(velX);
-    if (posX < 0) velX = fabs(velX);
-    if (posY > (this->height()-altura)) velY = -fabs(velY);
-    if (posY < 0) velY = fabs(velY);
-    */
+void MainWindow::slotAbirDialog(){
 
-    /* VERSION CON BOOLEANOS
-     *
-     * if (posX > (800-anchura)) derecha = false;
-     * if (posY > (600-altura)) abajo = false;
-     * if (posX < 0) derecha = true;
-     * if (posY < 0) abajo = true;
-     *
-     * if (derecha) posX += velX;
-     * else posX -= velX;
-     * if (abajo) posY += velY;
-     * else posY -= velY;
-     */
+  Dialog *dialogo = new Dialog(bolas.size(),this->width(),this->height(),this);
+  //dialogo->nBolas->setText(QString::number(bolas.size()));
+  //dialogo->tVentana->setText(QString::number(this->width())+"  x  "+QString::number(this->height()));
+  dialogo->show();
+
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event){
+
+    //cuando apretamos las teclas de flechas , que aumente o disminuya la velocidad
+    switch (event->key()) {
+
+      case Qt::Key_Up:
+        bolaJugador->velY--;
+        break;
+      case Qt::Key_Down:
+        bolaJugador->velY++;
+        break;
+      case Qt::Key_Left:
+        bolaJugador->velX--;
+        break;
+      case Qt::Key_Right:
+        bolaJugador->velX++;
+        break;
+
+    }
+
 
 }
