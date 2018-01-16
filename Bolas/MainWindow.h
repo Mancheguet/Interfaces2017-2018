@@ -38,16 +38,22 @@ class MainWindow : public QMainWindow{
 
         Bola *bolaJugador;
 
+        float posIX, posIY;
+
         void paintEvent (QPaintEvent *event);
         void inicializarBolas();
         void createActions();
         void createMenus();
+        void mousePressEvent(QMouseEvent *event);
+        void mouseReleaseEvent(QMouseEvent *event);
+        void mouseMoveEvent(QMouseEvent *event);
 
     public slots:
 
         void slotRepintar();
         void slotAbirDialog();
         void keyPressEvent(QKeyEvent *event);
+
 
 };
 

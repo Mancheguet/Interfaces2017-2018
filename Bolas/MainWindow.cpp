@@ -22,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow (pa
     createActions();
     createMenus();
 
+    setMouseTracking(true);//Hacemos el track del mouse
+
 }
 
 
@@ -31,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow (pa
 
 void MainWindow::inicializarBolas(){
 
-    for (int i=0; i<100; i++) {
+    for (int i=0; i<10; i++) {
       //Creo la bola y le doy una velocidad de inicio y posición
         //posición en la que salen y velocidad en la que salen
         bolas.append(new Bola(rand()%(width()-100),
@@ -49,29 +51,32 @@ void MainWindow::inicializarBolas(){
 void MainWindow::paintEvent(QPaintEvent *event){
 
     QPainter pintor(this);
-    //Color para los elementos creados por el QPainter.
-    QColor colorBola("#00ff2a");
-    Qt::BrushStyle style = Qt::SolidPattern;
-    QBrush brush(colorBola, style);
-    pintor.setBrush(brush);
 
     foreach (Bola *unaBola, bolas){
-        //LO MISMO PERO CON RECTANGULOS !!!!
-        //puedo poner también las dos cosas a la vez :)
-        //pintor.fillRect(unaBola->posX, unaBola->posY, unaBola->tamanyo, unaBola->tamanyo, QColor(QString("red")));
 
-        /* Meter una imagen !!!! */
-          QPixmap pixmap1("./img/doge.png"); //declaro la imagen , y dónde está
-          //ver tamaño real dónde esta el doge
-          //pintor.drawEllipse (unaBola->posX, unaBola->posY, unaBola->tamanyo, unaBola->tamanyo);
-          pintor.drawPixmap(unaBola->posX, unaBola->posY, Bola::diametro, Bola::diametro, pixmap1);
+      /* Meter una imagen !!!! */
+        //QPixmap pixmap1("./img/doge.png"); //declaro la imagen , y dónde está
+        //pintor.drawPixmap(unaBola->posX, unaBola->posY, Bola::diametro, Bola::diametro, pixmap1);
+        //Color para los elementos creados por el QPainter.
+        QColor colorBola("#00ff2a");
+        Qt::BrushStyle style = Qt::SolidPattern;
+        QBrush brush(colorBola, style);
+
+        pintor.setBrush(brush);
+        unaBola->pinta(pintor);
+
 
     }
 
     //Pintamos al jugador
-    //QPixmap pixmap2("./img/cat.png");
-    //pintor.drawPixmap(bolaJugador->posX, bolaJugador->posY, bolaJugador->tamanyo, bolaJugador->tamanyo, pixmap2);
-    pintor.drawEllipse( bolaJugador->posX, bolaJugador->posY, Bola::diametro, Bola::diametro );
+
+    //Color para los elementos creados por el QPainter.
+    QColor colorBola("#ffffff");
+    Qt::BrushStyle style = Qt::SolidPattern;
+    QBrush brush(colorBola, style);
+
+    pintor.setBrush(brush);
+    bolaJugador->pinta(pintor);
 
     //le pones el Foco en el mainWindow
     setFocus();
@@ -121,11 +126,42 @@ void MainWindow::slotRepintar(){
 
     for (int i = 0; i < bolas.size(); i++){
 
-        bolas[i]->mover(limiteDerecho, limiteInferior);
+        for (int j = 0; j < bolas.size(); j++) {
+            if(bolas[i]->choca(bolas[j])){
+                bolas[i]->vida--;
+                bolas[j]->vida--;
+                }
+            }
+            
+            bolas[i]->mover(limiteDerecho, limiteInferior);
+        }
 
+
+
+
+    //parte de bolasJugador
+    for (int x = 0; x < bolas.size(); x++) {
+        if(bolaJugador->choca(bolas[x])){
+            bolaJugador->vida--;
+            bolas[x]->vida--;
+            if(bolas[x]->vida<=0){
+              delete bolas[x];
+              bolas.remove(x);
+              break;
+            }
+        }
     }
 
     bolaJugador->mover(limiteDerecho, limiteInferior);
+
+    for (int x = 0; x < bolas.size(); x++) {
+      if(bolas[x]->vida<=0){
+        delete bolas[x];
+        bolas.remove(x);
+        break;
+      }
+
+    }
 
 }
 
@@ -160,3 +196,31 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
 
 
 }
+
+void MainWindow::mousePressEvent(QMouseEvent *event){
+
+  posIX=event->x();
+  posIY=event->y();
+
+}
+
+void MainWindow::mouseReleaseEvent(QMouseEvent *event){
+
+  float velocidadX = (event->x()-posIX)/30.3;
+  float velocidadY = (event->y()-posIY)/30.3;
+
+  bolas.append(new Bola(posIX,
+                        posIY,
+                        velocidadX,velocidadY));
+
+}
+
+ void MainWindow::mouseMoveEvent(QMouseEvent *event){
+
+    float magnitudX = (event->x()-bolaJugador->posX)/600.3;
+    float magnitudY = (event->y()-bolaJugador->posY)/600.3;
+
+    bolaJugador->velX+=magnitudX;
+    bolaJugador->velY+=magnitudY;
+
+ }

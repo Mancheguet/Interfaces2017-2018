@@ -3,6 +3,7 @@
 
 #include <QApplication>
 #include <QMainWindow>
+#include <QPainter>
 
 #include <math.h>
 
@@ -11,13 +12,18 @@ class Bola {
     public :
 
         static int diametro;
+        const static int vidaInicial = 5;
+
+        int vida;
         float posX, posY, velX, velY;
 
         Bola();
         Bola(float x, float y, float vx, float vy);
 
         void mover(float anch, float alt);
-        void pintar(QPainter& pintor);
+        void pinta(QPainter& pintor);
+        float distancia(Bola * otra);
+        bool choca(Bola * otra);
 
 };
 
