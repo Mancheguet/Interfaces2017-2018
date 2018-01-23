@@ -97,6 +97,11 @@ void MainWindow::createActions(){
   connect(accionDialog, SIGNAL(triggered()), this, SLOT(slotAbirDialog()));
   accionDialog->setShortcut(tr("Ctrl+i"));
 
+  //Opcion llamar al nuevo dialogo
+  accionInfoTabla = new QAction(QIcon("./img/nuevo.png"), "InfoTabla", this);
+  connect(accionInfoTabla, SIGNAL(triggered()), this, SLOT(slotInfoTabla()));
+  accionInfoTabla->setShortcut(tr("Ctrl+f"));
+
 }
 
 
@@ -106,6 +111,7 @@ void MainWindow::createMenus(){
   //I Luego , agregar al Menu , las QAction
   fileMenu = menuBar()->addMenu("&Archivo"); //Añado a la Barra de menus la opción Archivo
   fileMenu->addAction(accionDialog);
+  fileMenu->addAction(accionInfoTabla);
   fileMenu->addAction(accionSalir); //Añado al menuArchivo la acciuon Salir
 
 }
@@ -132,7 +138,7 @@ void MainWindow::slotRepintar(){
                 bolas[j]->vida--;
                 }
             }
-            
+
             bolas[i]->mover(limiteDerecho, limiteInferior);
         }
 
@@ -224,3 +230,10 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event){
     bolaJugador->velY+=magnitudY;
 
  }
+
+void MainWindow::slotInfoTabla(){
+  if(dInfoTabla==NULL){
+    dInfoTabla = new DInfoTabla();
+  }
+  dInfoTabla->show();
+}
