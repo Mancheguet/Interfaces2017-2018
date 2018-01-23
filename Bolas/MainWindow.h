@@ -19,6 +19,7 @@
 #include <Bola.h>
 #include <Dialog.h>
 #include <DInfoTabla.h>
+#include <DControlBolas.h>
 
 class MainWindow : public QMainWindow{
 
@@ -35,12 +36,14 @@ class MainWindow : public QMainWindow{
         QAction *accionSalir;
         QAction *accionDialog;
         QAction *accionInfoTabla;
+        QAction *accionControlBolas;
 
         QMenu *fileMenu;
 
         Bola *bolaJugador;
 
         DInfoTabla *dInfoTabla;
+        DControlBolas *dControlBolas;
 
         float posIX, posIY;
 
@@ -58,8 +61,8 @@ class MainWindow : public QMainWindow{
         void slotAbirDialog();
         void keyPressEvent(QKeyEvent *event);
         void slotInfoTabla();
-
-
+        void slotControlBolas();
+        
 };
 
 #endif

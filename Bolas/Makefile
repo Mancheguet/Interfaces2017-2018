@@ -49,20 +49,28 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = Bola.cpp \
+		DControlBolas.cpp \
 		Dialog.cpp \
 		DInfoTabla.cpp \
 		main.cpp \
-		MainWindow.cpp moc_Dialog.cpp \
+		MainWindow.cpp \
+		WidgetBola.cpp moc_DControlBolas.cpp \
+		moc_Dialog.cpp \
 		moc_DInfoTabla.cpp \
-		moc_MainWindow.cpp
+		moc_MainWindow.cpp \
+		moc_WidgetBola.cpp
 OBJECTS       = Bola.o \
+		DControlBolas.o \
 		Dialog.o \
 		DInfoTabla.o \
 		main.o \
 		MainWindow.o \
+		WidgetBola.o \
+		moc_DControlBolas.o \
 		moc_Dialog.o \
 		moc_DInfoTabla.o \
-		moc_MainWindow.o
+		moc_MainWindow.o \
+		moc_WidgetBola.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -128,13 +136,17 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		Bolas.pro Bola.h \
+		DControlBolas.h \
 		Dialog.h \
 		DInfoTabla.h \
-		MainWindow.h Bola.cpp \
+		MainWindow.h \
+		WidgetBola.h Bola.cpp \
+		DControlBolas.cpp \
 		Dialog.cpp \
 		DInfoTabla.cpp \
 		main.cpp \
-		MainWindow.cpp
+		MainWindow.cpp \
+		WidgetBola.cpp
 QMAKE_TARGET  = Bolas
 DESTDIR       = 
 TARGET        = Bolas
@@ -143,7 +155,7 @@ TARGET        = Bolas
 first: all
 ####### Build rules
 
-$(TARGET): ui_Dialog.h ui_DInfoTabla.h $(OBJECTS)  
+$(TARGET): ui_DControlBolas.h ui_Dialog.h ui_DInfoTabla.h ui_WidgetBola.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: Bolas.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -297,9 +309,9 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents Bola.h Dialog.h DInfoTabla.h MainWindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents Bola.cpp Dialog.cpp DInfoTabla.cpp main.cpp MainWindow.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents Dialog.ui DInfoTabla.ui $(DISTDIR)/
+	$(COPY_FILE) --parents Bola.h DControlBolas.h Dialog.h DInfoTabla.h MainWindow.h WidgetBola.h $(DISTDIR)/
+	$(COPY_FILE) --parents Bola.cpp DControlBolas.cpp Dialog.cpp DInfoTabla.cpp main.cpp MainWindow.cpp WidgetBola.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents DControlBolas.ui Dialog.ui DInfoTabla.ui WidgetBola.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -325,9 +337,17 @@ benchmark: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_Dialog.cpp moc_DInfoTabla.cpp moc_MainWindow.cpp
+compiler_moc_header_make_all: moc_DControlBolas.cpp moc_Dialog.cpp moc_DInfoTabla.cpp moc_MainWindow.cpp moc_WidgetBola.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_Dialog.cpp moc_DInfoTabla.cpp moc_MainWindow.cpp
+	-$(DEL_FILE) moc_DControlBolas.cpp moc_Dialog.cpp moc_DInfoTabla.cpp moc_MainWindow.cpp moc_WidgetBola.cpp
+moc_DControlBolas.cpp: ui_DControlBolas.h \
+		Bola.h \
+		WidgetBola.h \
+		ui_WidgetBola.h \
+		DControlBolas.h \
+		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include DControlBolas.h -o moc_DControlBolas.cpp
+
 moc_Dialog.cpp: ui_Dialog.h \
 		Dialog.h \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
@@ -342,15 +362,30 @@ moc_DInfoTabla.cpp: ui_DInfoTabla.h \
 moc_MainWindow.cpp: Bola.h \
 		Dialog.h \
 		ui_Dialog.h \
+		DInfoTabla.h \
+		ui_DInfoTabla.h \
+		DControlBolas.h \
+		ui_DControlBolas.h \
+		WidgetBola.h \
+		ui_WidgetBola.h \
 		MainWindow.h \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MainWindow.h -o moc_MainWindow.cpp
 
+moc_WidgetBola.cpp: ui_WidgetBola.h \
+		WidgetBola.h \
+		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include WidgetBola.h -o moc_WidgetBola.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_Dialog.h ui_DInfoTabla.h
+compiler_uic_make_all: ui_DControlBolas.h ui_Dialog.h ui_DInfoTabla.h ui_WidgetBola.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_Dialog.h ui_DInfoTabla.h
+	-$(DEL_FILE) ui_DControlBolas.h ui_Dialog.h ui_DInfoTabla.h ui_WidgetBola.h
+ui_DControlBolas.h: DControlBolas.ui \
+		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic DControlBolas.ui -o ui_DControlBolas.h
+
 ui_Dialog.h: Dialog.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic Dialog.ui -o ui_Dialog.h
@@ -358,6 +393,10 @@ ui_Dialog.h: Dialog.ui \
 ui_DInfoTabla.h: DInfoTabla.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic DInfoTabla.ui -o ui_DInfoTabla.h
+
+ui_WidgetBola.h: WidgetBola.ui \
+		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
+	/usr/lib/x86_64-linux-gnu/qt5/bin/uic WidgetBola.ui -o ui_WidgetBola.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -372,6 +411,13 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 Bola.o: Bola.cpp Bola.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Bola.o Bola.cpp
 
+DControlBolas.o: DControlBolas.cpp DControlBolas.h \
+		ui_DControlBolas.h \
+		Bola.h \
+		WidgetBola.h \
+		ui_WidgetBola.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DControlBolas.o DControlBolas.cpp
+
 Dialog.o: Dialog.cpp Dialog.h \
 		ui_Dialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Dialog.o Dialog.cpp
@@ -384,14 +430,33 @@ DInfoTabla.o: DInfoTabla.cpp DInfoTabla.h \
 main.o: main.cpp MainWindow.h \
 		Bola.h \
 		Dialog.h \
-		ui_Dialog.h
+		ui_Dialog.h \
+		DInfoTabla.h \
+		ui_DInfoTabla.h \
+		DControlBolas.h \
+		ui_DControlBolas.h \
+		WidgetBola.h \
+		ui_WidgetBola.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 MainWindow.o: MainWindow.cpp MainWindow.h \
 		Bola.h \
 		Dialog.h \
-		ui_Dialog.h
+		ui_Dialog.h \
+		DInfoTabla.h \
+		ui_DInfoTabla.h \
+		DControlBolas.h \
+		ui_DControlBolas.h \
+		WidgetBola.h \
+		ui_WidgetBola.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o MainWindow.cpp
+
+WidgetBola.o: WidgetBola.cpp WidgetBola.h \
+		ui_WidgetBola.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o WidgetBola.o WidgetBola.cpp
+
+moc_DControlBolas.o: moc_DControlBolas.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_DControlBolas.o moc_DControlBolas.cpp
 
 moc_Dialog.o: moc_Dialog.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Dialog.o moc_Dialog.cpp
@@ -401,6 +466,9 @@ moc_DInfoTabla.o: moc_DInfoTabla.cpp
 
 moc_MainWindow.o: moc_MainWindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MainWindow.o moc_MainWindow.cpp
+
+moc_WidgetBola.o: moc_WidgetBola.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_WidgetBola.o moc_WidgetBola.cpp
 
 ####### Install
 

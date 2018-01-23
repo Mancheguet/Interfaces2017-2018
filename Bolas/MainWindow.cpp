@@ -3,6 +3,8 @@
 MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow (parent, flags){
 
     Bola::diametro=60;
+    dControlBolas=NULL;
+    dInfoTabla=NULL;
     //dar tamaño a la pantalla principal
     resize(800, 600);
 
@@ -98,9 +100,15 @@ void MainWindow::createActions(){
   accionDialog->setShortcut(tr("Ctrl+i"));
 
   //Opcion llamar al nuevo dialogo
+  accionControlBolas = new QAction(QIcon("./img/nuevo.png"), "DControlBolas", this);
+  connect(accionControlBolas, SIGNAL(triggered()), this, SLOT(slotControlBolas()));
+  accionControlBolas->setShortcut(tr("Ctrl+b"));
+
+  //Opcion llamar al nuevo dialogo
   accionInfoTabla = new QAction(QIcon("./img/nuevo.png"), "InfoTabla", this);
   connect(accionInfoTabla, SIGNAL(triggered()), this, SLOT(slotInfoTabla()));
   accionInfoTabla->setShortcut(tr("Ctrl+f"));
+
 
 }
 
@@ -113,9 +121,60 @@ void MainWindow::createMenus(){
   fileMenu->addAction(accionDialog);
   fileMenu->addAction(accionInfoTabla);
   fileMenu->addAction(accionSalir); //Añado al menuArchivo la acciuon Salir
+  fileMenu->addAction(accionControlBolas);
 
 }
 
+void MainWindow::keyPressEvent(QKeyEvent *event){
+
+    //cuando apretamos las teclas de flechas , que aumente o disminuya la velocidad
+    switch (event->key()) {
+
+      case Qt::Key_Up:
+        bolaJugador->velY--;
+        break;
+      case Qt::Key_Down:
+        bolaJugador->velY++;
+        break;
+      case Qt::Key_Left:
+        bolaJugador->velX--;
+        break;
+      case Qt::Key_Right:
+        bolaJugador->velX++;
+        break;
+
+    }
+
+
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event){
+
+  posIX=event->x();
+  posIY=event->y();
+
+}
+
+void MainWindow::mouseReleaseEvent(QMouseEvent *event){
+
+  float velocidadX = (event->x()-posIX)/30.3;
+  float velocidadY = (event->y()-posIY)/30.3;
+
+  bolas.append(new Bola(posIX,
+                        posIY,
+                        velocidadX,velocidadY));
+
+}
+
+ void MainWindow::mouseMoveEvent(QMouseEvent *event){
+
+    float magnitudX = (event->x()-bolaJugador->posX)/600.3;
+    float magnitudY = (event->y()-bolaJugador->posY)/600.3;
+
+    bolaJugador->velX+=magnitudX;
+    bolaJugador->velY+=magnitudY;
+
+ }
 
 
 ////////////////////////////////
@@ -180,60 +239,18 @@ void MainWindow::slotAbirDialog(){
 
 }
 
-void MainWindow::keyPressEvent(QKeyEvent *event){
-
-    //cuando apretamos las teclas de flechas , que aumente o disminuya la velocidad
-    switch (event->key()) {
-
-      case Qt::Key_Up:
-        bolaJugador->velY--;
-        break;
-      case Qt::Key_Down:
-        bolaJugador->velY++;
-        break;
-      case Qt::Key_Left:
-        bolaJugador->velX--;
-        break;
-      case Qt::Key_Right:
-        bolaJugador->velX++;
-        break;
-
-    }
-
-
-}
-
-void MainWindow::mousePressEvent(QMouseEvent *event){
-
-  posIX=event->x();
-  posIY=event->y();
-
-}
-
-void MainWindow::mouseReleaseEvent(QMouseEvent *event){
-
-  float velocidadX = (event->x()-posIX)/30.3;
-  float velocidadY = (event->y()-posIY)/30.3;
-
-  bolas.append(new Bola(posIX,
-                        posIY,
-                        velocidadX,velocidadY));
-
-}
-
- void MainWindow::mouseMoveEvent(QMouseEvent *event){
-
-    float magnitudX = (event->x()-bolaJugador->posX)/600.3;
-    float magnitudY = (event->y()-bolaJugador->posY)/600.3;
-
-    bolaJugador->velX+=magnitudX;
-    bolaJugador->velY+=magnitudY;
-
- }
-
 void MainWindow::slotInfoTabla(){
   if(dInfoTabla==NULL){
-    dInfoTabla = new DInfoTabla();
+    dInfoTabla = new DInfoTabla(&bolas, this);
   }
   dInfoTabla->show();
+}
+
+void MainWindow::slotControlBolas(){
+
+  if(dControlBolas==NULL){
+    dControlBolas = new DControlBolas(&bolas, this);
+  }
+  dControlBolas->show();
+
 }

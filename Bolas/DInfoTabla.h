@@ -6,6 +6,8 @@
 #include <QModelIndex>
 #include <QVector>
 
+#include <QDebug>
+
 #include "ui_DInfoTabla.h"
 
 #include "Bola.h"
@@ -17,18 +19,18 @@ class DInfoTabla : public QDialog, public Ui::DInfoTabla {
 
     public:
 
-        DInfoTabla(QWidget *parent=0);
+        DInfoTabla( QVector<Bola *> * bolasMain, QWidget *parent=0);
 
 };
 
 class ModeloTabla : public QAbstractTableModel {
 public:
 
-    ModeloTabla ( QObject * parent = 0 );
+    ModeloTabla ( QVector<Bola *> * bolasMain, QObject * parent = 0 );
 
-    int rowCount ( const QModelIndex & parent =
+    QVector<Bola *> * bolas;
 
-    QModelIndex() ) const ;
+    int rowCount ( const QModelIndex & parent = QModelIndex() ) const ;
 
     int columnCount ( const QModelIndex & parent = QModelIndex() ) const ;
 

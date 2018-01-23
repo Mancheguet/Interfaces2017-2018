@@ -12,7 +12,7 @@ class Bola {
     public :
 
         static int diametro;
-        const static int vidaInicial = 5;
+        const static int vidaInicial = 100;
 
         int vida;
         float posX, posY, velX, velY;
