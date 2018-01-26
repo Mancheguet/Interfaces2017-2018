@@ -39,7 +39,7 @@ QVariant ModeloTabla::data ( const QModelIndex & index, int role ) const {
               break;
       case 2 :return QString::number(bolas->at(fila)->velX);
               break;
-      case 3 :return QString::number(bolas->at(fila)->velY); 
+      case 3 :return QString::number(bolas->at(fila)->velY);
               break;
     }
 

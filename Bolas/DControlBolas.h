@@ -22,6 +22,7 @@ class DControlBolas: public QDialog, public Ui::DControlBolas {
     public:
 
       DControlBolas(QVector<Bola *> * bolasMain, QWidget *parent=0);
+      QVector<Bola *> * bolas;
 
     public slots:
 
