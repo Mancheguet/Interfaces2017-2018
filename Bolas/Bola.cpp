@@ -10,6 +10,7 @@ Bola::Bola(float x, float y, float vx, float vy):
                           posX(x), posY(y), velX(vx), velY(vy) {
 
     vida = Bola::vidaInicial;
+    resaltado = false;
 
 }
 
@@ -26,6 +27,13 @@ void Bola::mover(float anchura, float altura){
 }
 
 void Bola::pinta(QPainter& pintor){
+
+  if(resaltado){
+    QColor colorBola("#000000");
+    Qt::BrushStyle style = Qt::DiagCrossPattern;
+    QBrush brush(colorBola, style);
+    pintor.setBrush(brush);
+  }
 
   pintor.drawEllipse(posX,posY,Bola::diametro,Bola::diametro);
   pintor.drawText(posX+(20),posY+(20),QString::number(this->vida));
@@ -94,5 +102,12 @@ bool Bola::choca(Bola * otra) {
     }
 
     return rebota;
+
+}
+
+void Bola::parar(){
+
+  velX=0;
+  velY=0;
 
 }

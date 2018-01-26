@@ -17,6 +17,8 @@ class Bola {
         int vida;
         float posX, posY, velX, velY;
 
+        bool resaltado;
+
         Bola();
         Bola(float x, float y, float vx, float vy);
 
@@ -24,6 +26,7 @@ class Bola {
         void pinta(QPainter& pintor);
         float distancia(Bola * otra);
         bool choca(Bola * otra);
+        void parar();
 
 };
 

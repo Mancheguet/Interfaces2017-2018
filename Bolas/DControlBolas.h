@@ -6,7 +6,7 @@
 #include <QModelIndex>
 #include <QVector>
 #include <QPushButton>
-
+#include <QWidget>
 #include <QDebug>
 
 #include "ui_DControlBolas.h"
@@ -21,8 +21,11 @@ class DControlBolas: public QDialog, public Ui::DControlBolas {
 
     public:
 
-        DControlBolas(QVector<Bola *> * bolasMain, QWidget *parent=0);
+      DControlBolas(QVector<Bola *> * bolasMain, QWidget *parent=0);
 
+    public slots:
+
+      void slotCambioPestana(int);
 };
 
 #endif

@@ -5,7 +5,7 @@
 #include <QPushButton>
 
 #include "ui_WidgetBola.h"
-
+#include "Bola.h"
 
 class WidgetBola: public QDialog, public Ui::WidgetBola {
 
@@ -13,7 +13,14 @@ class WidgetBola: public QDialog, public Ui::WidgetBola {
 
     public:
 
-        WidgetBola(QWidget *parent=0);
+        WidgetBola(Bola * bola, QWidget *parent=0);
+        Bola * miBola;
+
+    signals:
+
+
+    private slots:
+       void slotParar();
 
 };
 

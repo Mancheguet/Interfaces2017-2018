@@ -63,8 +63,8 @@ void MainWindow::paintEvent(QPaintEvent *event){
         QColor colorBola("#00ff2a");
         Qt::BrushStyle style = Qt::SolidPattern;
         QBrush brush(colorBola, style);
-
         pintor.setBrush(brush);
+
         unaBola->pinta(pintor);
 
 
