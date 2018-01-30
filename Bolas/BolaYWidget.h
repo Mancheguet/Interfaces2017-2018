@@ -4,9 +4,7 @@
 #include "Bola.h"
 #include "WidgetBola.h"
 
-class BolaYWidget : public Bola, public WidgetBola{
-
-  Q_OBJECT
+class BolaYWidget : public WidgetBola, public Bola {
 
   public:
 

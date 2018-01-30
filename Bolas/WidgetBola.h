@@ -3,6 +3,10 @@
 
 #include <QDialog>
 #include <QPushButton>
+#include <QColorDialog>
+#include <QMessageBox>
+#include <QColor>
+#include <QPainter>
 
 #include "ui_WidgetBola.h"
 #include "Bola.h"
@@ -21,6 +25,7 @@ class WidgetBola: public QDialog, public Ui::WidgetBola {
 
     private slots:
        void slotParar();
+       void slotCambioColor();
 
 };
 

@@ -1,6 +1,6 @@
 #include "DInfoTabla.h"
 
-DInfoTabla::DInfoTabla(QVector<Bola *> * bolasMain, QWidget *parent) : QDialog(parent) {
+DInfoTabla::DInfoTabla(QVector<BolaYWidget *> * bolasMain, QWidget *parent) : QDialog(parent) {
 
     setupUi(this);
 
@@ -9,7 +9,7 @@ DInfoTabla::DInfoTabla(QVector<Bola *> * bolasMain, QWidget *parent) : QDialog(p
 
 }
 
-ModeloTabla::ModeloTabla(QVector<Bola *> * bolasMain, QObject * parent){
+ModeloTabla::ModeloTabla(QVector<BolaYWidget *> * bolasMain, QObject * parent){
     bolas = bolasMain;
 }
 

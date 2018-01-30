@@ -4,6 +4,7 @@
 #include <QApplication>
 #include <QMainWindow>
 #include <QPainter>
+#include <QColor>
 
 #include <math.h>
 
@@ -18,6 +19,8 @@ class Bola {
         float posX, posY, velX, velY;
 
         bool resaltado;
+
+        QColor color;
 
         Bola();
         Bola(float x, float y, float vx, float vy);

@@ -16,6 +16,7 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -30,6 +31,7 @@ public:
     QTabWidget *tabBolas;
     QWidget *tab;
     QWidget *tab_2;
+    QPushButton *btnIgualar;
     QDialogButtonBox *buttonBox;
 
     void setupUi(QDialog *DControlBolas)
@@ -51,6 +53,11 @@ public:
         tabBolas->addTab(tab_2, QString());
 
         verticalLayout->addWidget(tabBolas);
+
+        btnIgualar = new QPushButton(DControlBolas);
+        btnIgualar->setObjectName(QStringLiteral("btnIgualar"));
+
+        verticalLayout->addWidget(btnIgualar);
 
         buttonBox = new QDialogButtonBox(DControlBolas);
         buttonBox->setObjectName(QStringLiteral("buttonBox"));
@@ -75,6 +82,7 @@ public:
         DControlBolas->setWindowTitle(QApplication::translate("DControlBolas", "Dialog", Q_NULLPTR));
         tabBolas->setTabText(tabBolas->indexOf(tab), QApplication::translate("DControlBolas", "Tab 1", Q_NULLPTR));
         tabBolas->setTabText(tabBolas->indexOf(tab_2), QApplication::translate("DControlBolas", "Tab 2", Q_NULLPTR));
+        btnIgualar->setText(QApplication::translate("DControlBolas", "Igualar", Q_NULLPTR));
     } // retranslateUi
 
 };

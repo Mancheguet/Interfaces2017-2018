@@ -13,6 +13,7 @@
 
 #include "Bola.h"
 #include "WidgetBola.h"
+#include "BolaYWidget.h"
 
 
 class DControlBolas: public QDialog, public Ui::DControlBolas {
@@ -21,12 +22,13 @@ class DControlBolas: public QDialog, public Ui::DControlBolas {
 
     public:
 
-      DControlBolas(QVector<Bola *> * bolasMain, QWidget *parent=0);
-      QVector<Bola *> * bolas;
+      DControlBolas(QVector<BolaYWidget *> * bolasMain, QWidget *parent=0);
+      QVector<BolaYWidget *> * bolas;
 
     public slots:
 
       void slotCambioPestana(int);
+      void slotIgualar();
 };
 
 #endif

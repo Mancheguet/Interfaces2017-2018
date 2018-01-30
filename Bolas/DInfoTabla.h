@@ -11,6 +11,7 @@
 #include "ui_DInfoTabla.h"
 
 #include "Bola.h"
+#include "BolaYWidget.h"
 
 
 class DInfoTabla : public QDialog, public Ui::DInfoTabla {
@@ -19,16 +20,16 @@ class DInfoTabla : public QDialog, public Ui::DInfoTabla {
 
     public:
 
-        DInfoTabla( QVector<Bola *> * bolasMain, QWidget *parent=0);
+        DInfoTabla( QVector<BolaYWidget *> * bolasMain, QWidget *parent=0);
 
 };
 
 class ModeloTabla : public QAbstractTableModel {
 public:
 
-    ModeloTabla ( QVector<Bola *> * bolasMain, QObject * parent = 0 );
+    ModeloTabla ( QVector<BolaYWidget *> * bolasMain, QObject * parent = 0 );
 
-    QVector<Bola *> * bolas;
+    QVector<BolaYWidget *> * bolas;
 
     int rowCount ( const QModelIndex & parent = QModelIndex() ) const ;
 

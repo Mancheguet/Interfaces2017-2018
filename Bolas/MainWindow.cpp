@@ -38,14 +38,14 @@ void MainWindow::inicializarBolas(){
     for (int i=0; i<10; i++) {
       //Creo la bola y le doy una velocidad de inicio y posición
         //posición en la que salen y velocidad en la que salen
-        bolas.append(new Bola(rand()%(width()-100),
+        bolas.append(new BolaYWidget(rand()%(width()-100),
                               rand()%(height()-20),
                               (float)(rand()%100)/25-1,
                               (float)(rand()%100)/25-1));
     }
 
     //Crear bola jugador
-    bolaJugador = new Bola(rand()%(width()-100),rand()%(height()-20),
+    bolaJugador = new BolaYWidget(rand()%(width()-100),rand()%(height()-20),
     (float)(rand()%100)/25-1,(float)(rand()%100)/25-1);
 
 }
@@ -60,10 +60,6 @@ void MainWindow::paintEvent(QPaintEvent *event){
         //QPixmap pixmap1("./img/doge.png"); //declaro la imagen , y dónde está
         //pintor.drawPixmap(unaBola->posX, unaBola->posY, Bola::diametro, Bola::diametro, pixmap1);
         //Color para los elementos creados por el QPainter.
-        QColor colorBola("#00ff2a");
-        Qt::BrushStyle style = Qt::SolidPattern;
-        QBrush brush(colorBola, style);
-        pintor.setBrush(brush);
 
         unaBola->pinta(pintor);
 
@@ -73,9 +69,9 @@ void MainWindow::paintEvent(QPaintEvent *event){
     //Pintamos al jugador
 
     //Color para los elementos creados por el QPainter.
-    QColor colorBola("#ffffff");
+    bolaJugador->color="#ffffff";
     Qt::BrushStyle style = Qt::SolidPattern;
-    QBrush brush(colorBola, style);
+    QBrush brush(bolaJugador->color, style);
 
     pintor.setBrush(brush);
     bolaJugador->pinta(pintor);
@@ -160,7 +156,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event){
   float velocidadX = (event->x()-posIX)/30.3;
   float velocidadY = (event->y()-posIY)/30.3;
 
-  bolas.append(new Bola(posIX,
+  bolas.append(new BolaYWidget(posIX,
                         posIY,
                         velocidadX,velocidadY));
 

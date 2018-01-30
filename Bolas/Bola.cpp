@@ -11,6 +11,7 @@ Bola::Bola(float x, float y, float vx, float vy):
 
     vida = Bola::vidaInicial;
     resaltado = false;
+    color = "#00ff2a";
 
 }
 
@@ -33,6 +34,12 @@ void Bola::pinta(QPainter& pintor){
     Qt::BrushStyle style = Qt::DiagCrossPattern;
     QBrush brush(colorBola, style);
     pintor.setBrush(brush);
+  } else {
+
+    Qt::BrushStyle style = Qt::SolidPattern;
+    QBrush brush(this->color, style);
+    pintor.setBrush(brush);
+
   }
 
   pintor.drawEllipse(posX,posY,Bola::diametro,Bola::diametro);
