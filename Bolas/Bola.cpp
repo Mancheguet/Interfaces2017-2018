@@ -39,8 +39,7 @@ void Bola::pinta(QPainter& pintor){
 
     if(tieneImagen){
 
-      pintor.drawImage(posX,posY, imagenBola->scaled(Bola::diametro, Bola::diametro));
-
+      pintor.drawImage(posX,posY, imagenBola.scaled(Bola::diametro, Bola::diametro));
 
     } else {
 
@@ -131,7 +130,7 @@ void Bola::parar(){
 
 }
 
-void Bola::insertarImagen(QImage * imagenMomento){
+void Bola::insertarImagen(QImage imagenMomento){
 
   imagenBola = imagenMomento;
   tieneImagen = true;

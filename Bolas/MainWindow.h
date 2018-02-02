@@ -23,6 +23,9 @@
 #include <DControlBolas.h>
 #include "BolaYWidget.h"
 
+//Drag&Drop
+#include <QDragEnterEvent>
+
 class MainWindow : public QMainWindow{
 
     Q_OBJECT
@@ -40,7 +43,8 @@ class MainWindow : public QMainWindow{
         QAction *accionInfoTabla;
         QAction *accionControlBolas;
 
-        QImage *imagenBola;
+        QImage imagenBola;
+        QPixmap *capturaPantalla;
 
         QMenu *fileMenu;
 
@@ -58,6 +62,8 @@ class MainWindow : public QMainWindow{
         void mousePressEvent(QMouseEvent *event);
         void mouseReleaseEvent(QMouseEvent *event);
         void mouseMoveEvent(QMouseEvent *event);
+        void dragEnterEvent ( QDragEnterEvent * event );
+        void dropEvent ( QDropEvent * event );
 
     public slots:
 
@@ -66,6 +72,11 @@ class MainWindow : public QMainWindow{
         void keyPressEvent(QKeyEvent *event);
         void slotInfoTabla();
         void slotControlBolas();
+
+    private:
+
+        void performDrag();
+        QPoint startPos;
 
 };
 

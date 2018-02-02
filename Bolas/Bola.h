@@ -23,7 +23,7 @@ class Bola {
         bool tieneImagen;
 
         QColor color;
-        QImage * imagenBola;
+        QImage imagenBola;
 
         Bola();
         Bola(float x, float y, float vx, float vy);
@@ -33,7 +33,7 @@ class Bola {
         float distancia(Bola * otra);
         bool choca(Bola * otra);
         void parar();
-        void insertarImagen(QImage * imagenMomento);
+        void insertarImagen(QImage imagenMomento);
 
 };
 

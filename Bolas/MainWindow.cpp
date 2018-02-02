@@ -26,8 +26,15 @@ MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow (pa
 
     setMouseTracking(true);//Hacemos el track del mouse
 
-    imagenBola = new QImage("./img/dog.png");
+    imagenBola = QImage("./img/dog.png");
 
+    //Aceptar drag&drop en la aplicación , si no tenemos esto , el porhgrama no hace nada
+    setAcceptDrops(true);
+    /*
+    capturaPantalla = new QPixmap(this->size());
+    this->render(capturaPantalla);
+    capturaPantalla->save("./img/test.png");
+    */
 }
 
 
@@ -62,7 +69,11 @@ void MainWindow::paintEvent(QPaintEvent *event){
         //QPixmap pixmap1("./img/doge.png"); //declaro la imagen , y dónde está
         //pintor.drawPixmap(unaBola->posX, unaBola->posY, Bola::diametro, Bola::diametro, pixmap1);
         //Color para los elementos creados por el QPainter.
-        unaBola->insertarImagen(imagenBola);
+        if(!unaBola->tieneImagen){
+          unaBola->insertarImagen(imagenBola);
+        }
+
+
         unaBola->pinta(pintor);
 
 
@@ -151,6 +162,10 @@ void MainWindow::mousePressEvent(QMouseEvent *event){
   posIX=event->x();
   posIY=event->y();
 
+  if (event->button() == Qt::LeftButton)
+  startPos = event->pos();
+  QMainWindow::mousePressEvent(event);
+
 }
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *event){
@@ -172,7 +187,52 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *event){
     bolaJugador->velX+=magnitudX;
     bolaJugador->velY+=magnitudY;
 
+    if (event->buttons() & Qt::LeftButton) {
+        int distance = (event->pos() - startPos).manhattanLength();
+        if (distance >= QApplication::startDragDistance())
+            performDrag();
+    }
+    QMainWindow::mouseMoveEvent(event);
+
  }
+
+void MainWindow::dragEnterEvent ( QDragEnterEvent * event ) {
+    event->acceptProposedAction();
+}
+
+void MainWindow::dropEvent ( QDropEvent * event ){
+
+    if (event->mimeData()->hasImage()) {
+        QImage image = qvariant_cast<QImage>(event->mimeData()->imageData());
+
+        BolaYWidget * unaBola = new BolaYWidget(rand()%(width()-100),rand()%(height()-20),
+        (float)(rand()%100)/25-1,(float)(rand()%100)/25-1);
+
+        unaBola->insertarImagen(image);
+
+        bolas.append(unaBola);
+
+      }
+
+}
+
+void MainWindow::performDrag()
+{
+
+        QMimeData *mimeData = new QMimeData;
+        QPixmap pixmap(size());
+        this->render(&pixmap);
+        mimeData->setImageData(pixmap);
+        //mimeData->setImageData(QImage("./img/test.png"));
+
+        QDrag *drag = new QDrag(this);
+        drag->setMimeData(mimeData);
+        drag->setPixmap(QPixmap("./img/dog.png"));
+        drag->exec(Qt::MoveAction) ;
+}
+
+
+
 
 
 ////////////////////////////////
