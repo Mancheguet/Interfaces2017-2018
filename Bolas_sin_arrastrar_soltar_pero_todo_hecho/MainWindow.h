@@ -14,7 +14,6 @@
 
 //Prueba de imagenes
 #include <QPixmap>
-#include <QImage>
 //
 
 #include <Bola.h>
@@ -39,8 +38,6 @@ class MainWindow : public QMainWindow{
         QAction *accionDialog;
         QAction *accionInfoTabla;
         QAction *accionControlBolas;
-
-        QImage *imagenBola;
 
         QMenu *fileMenu;
 

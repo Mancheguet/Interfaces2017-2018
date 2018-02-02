@@ -12,7 +12,6 @@ Bola::Bola(float x, float y, float vx, float vy):
     vida = Bola::vidaInicial;
     resaltado = false;
     color = "#00ff2a";
-    tieneImagen = false;
 
 }
 
@@ -37,24 +36,13 @@ void Bola::pinta(QPainter& pintor){
     pintor.setBrush(brush);
   } else {
 
-    if(tieneImagen){
-
-      pintor.drawImage(posX,posY, imagenBola->scaled(Bola::diametro, Bola::diametro));
-
-
-    } else {
-
-      Qt::BrushStyle style = Qt::SolidPattern;
-      QBrush brush(this->color, style);
-      pintor.setBrush(brush);
-      pintor.drawEllipse(posX,posY,Bola::diametro,Bola::diametro);
-
-    }
-
+    Qt::BrushStyle style = Qt::SolidPattern;
+    QBrush brush(this->color, style);
+    pintor.setBrush(brush);
 
   }
 
-  //pintor.drawEllipse(posX,posY,Bola::diametro,Bola::diametro);
+  pintor.drawEllipse(posX,posY,Bola::diametro,Bola::diametro);
   pintor.drawText(posX+(20),posY+(20),QString::number(this->vida));
   /* pintamos las barritas de la vida */
       int  ancho = diametro;
@@ -128,12 +116,5 @@ void Bola::parar(){
 
   velX=0;
   velY=0;
-
-}
-
-void Bola::insertarImagen(QImage * imagenMomento){
-
-  imagenBola = imagenMomento;
-  tieneImagen = true;
 
 }

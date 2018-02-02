@@ -26,8 +26,6 @@ MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) : QMainWindow (pa
 
     setMouseTracking(true);//Hacemos el track del mouse
 
-    imagenBola = new QImage("./img/dog.png");
-
 }
 
 
@@ -62,7 +60,7 @@ void MainWindow::paintEvent(QPaintEvent *event){
         //QPixmap pixmap1("./img/doge.png"); //declaro la imagen , y dónde está
         //pintor.drawPixmap(unaBola->posX, unaBola->posY, Bola::diametro, Bola::diametro, pixmap1);
         //Color para los elementos creados por el QPainter.
-        unaBola->insertarImagen(imagenBola);
+
         unaBola->pinta(pintor);
 
 

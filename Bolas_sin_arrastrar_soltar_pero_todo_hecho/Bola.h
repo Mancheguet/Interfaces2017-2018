@@ -5,7 +5,6 @@
 #include <QMainWindow>
 #include <QPainter>
 #include <QColor>
-#include <QImage>
 
 #include <math.h>
 
@@ -20,10 +19,8 @@ class Bola {
         float posX, posY, velX, velY;
 
         bool resaltado;
-        bool tieneImagen;
 
         QColor color;
-        QImage * imagenBola;
 
         Bola();
         Bola(float x, float y, float vx, float vy);
@@ -33,7 +30,6 @@ class Bola {
         float distancia(Bola * otra);
         bool choca(Bola * otra);
         void parar();
-        void insertarImagen(QImage * imagenMomento);
 
 };
 
