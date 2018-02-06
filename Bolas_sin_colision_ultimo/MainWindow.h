@@ -22,8 +22,6 @@
 #include <DInfoTabla.h>
 #include <DControlBolas.h>
 #include "BolaYWidget.h"
-#include "DVerColisiones.h"
-#include "WidgetColision.h"
 
 //Drag&Drop
 #include <QDragEnterEvent>
@@ -44,7 +42,6 @@ class MainWindow : public QMainWindow{
         QAction *accionDialog;
         QAction *accionInfoTabla;
         QAction *accionControlBolas;
-        QAction *accionDVerColisiones;
 
         QImage imagenBola;
         QPixmap *capturaPantalla;
@@ -67,7 +64,6 @@ class MainWindow : public QMainWindow{
         void mouseMoveEvent(QMouseEvent *event);
         void dragEnterEvent ( QDragEnterEvent * event );
         void dropEvent ( QDropEvent * event );
-        void anotarColision(Bola * bolaJugador, Bola * bola);
 
     public slots:
 
@@ -76,7 +72,6 @@ class MainWindow : public QMainWindow{
         void keyPressEvent(QKeyEvent *event);
         void slotInfoTabla();
         void slotControlBolas();
-        void slotVerColisiones();
 
     private:
 

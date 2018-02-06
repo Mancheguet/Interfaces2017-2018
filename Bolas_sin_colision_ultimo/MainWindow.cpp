@@ -118,11 +118,6 @@ void MainWindow::createActions(){
   connect(accionInfoTabla, SIGNAL(triggered()), this, SLOT(slotInfoTabla()));
   accionInfoTabla->setShortcut(tr("Ctrl+f"));
 
-  //Opcion llamar al nuevo dialogo
-  accionDVerColisiones = new QAction(QIcon("./img/nuevo.png"), "Ver colisiones", this);
-  connect(accionDVerColisiones, SIGNAL(triggered()), this, SLOT(slotVerColisiones()));
-  //accionDVerColisiones->setShortcut(tr("Ctrl+f"));
-
 
 }
 
@@ -136,7 +131,6 @@ void MainWindow::createMenus(){
   fileMenu->addAction(accionInfoTabla);
   fileMenu->addAction(accionSalir); //Añado al menuArchivo la acciuon Salir
   fileMenu->addAction(accionControlBolas);
-  fileMenu->addAction(accionDVerColisiones);
 
 }
 
@@ -237,11 +231,6 @@ void MainWindow::performDrag()
         drag->exec(Qt::MoveAction) ;
 }
 
-void MainWindow::anotarColision(Bola * bolaJugador, Bola * bola){
-
-    bolaJugador->colisiones.append( Colision(bolaJugador, bola, bolaJugador->posX, bolaJugador->posY));
-
-}
 
 
 
@@ -276,8 +265,6 @@ void MainWindow::slotRepintar(){
     //parte de bolasJugador
     for (int x = 0; x < bolas.size(); x++) {
         if(bolaJugador->choca(bolas[x])){
-            //añadimos a la parte del vector de colisiones de jugador la nueva poss
-            anotarColision(bolaJugador, bolas[x]);
             bolaJugador->vida--;
             bolas[x]->vida--;
             if(bolas[x]->vida<=0){
@@ -324,35 +311,4 @@ void MainWindow::slotControlBolas(){
   }
   dControlBolas->show();
 
-}
-
-void MainWindow::slotVerColisiones(){
-
-  qDebug() << bolaJugador->colisiones.size();
-
-  DVerColisiones * dialogoColisiones = new DVerColisiones(this);
-
-  QWidget * listaWidgets = new QWidget(dialogoColisiones);
-  listaWidgets->setLayout(new QVBoxLayout());
-  listaWidgets->layout()->addWidget(new QLabel("Hola"));
-  listaWidgets->layout()->addWidget(new WidgetColision(bolaJugador->colisiones[1]));
-  listaWidgets->layout()->addWidget(new QLabel("Hola2"));
-  //dialogoColisiones->setWidget(listaWidgets);
-
-  dialogoColisiones->show();
-  //dialogoColisiones->layout()->addWidget(new QVBoxLayout(new WidgetColision(bolaJugador->colisiones[0])));
-/*
-  QWidget * listaWidgets = new QWidget(dialogoColisiones);
-  foreach(Colision col, bolaJugador->colisiones){
-    qDebug() << "Añadir bola";
-    listaWidgets->layout()->addWidget(new WidgetColision(col, listaWidgets));
-  }
-  */
-/*
-  QDialog * dialogo(this);
-  VBoxLayout * layout;
-  dialogo->setLayout(layout);
-
-  layout->addWidget(new WidgetColision(....));
-*/
 }

@@ -6,12 +6,8 @@
 #include <QPainter>
 #include <QColor>
 #include <QImage>
-#include <QVector>
 
 #include <math.h>
-#include "Colision.h"
-
-class Colision;
 
 class Bola {
 
@@ -28,8 +24,6 @@ class Bola {
 
         QColor color;
         QImage imagenBola;
-
-        QVector<Colision> colisiones;
 
         Bola();
         Bola(float x, float y, float vx, float vy);

@@ -50,39 +50,29 @@ OBJECTS_DIR   = ./
 
 SOURCES       = Bola.cpp \
 		BolaYWidget.cpp \
-		Colision.cpp \
 		DControlBolas.cpp \
 		Dialog.cpp \
 		DInfoTabla.cpp \
-		DVerColisiones.cpp \
 		main.cpp \
 		MainWindow.cpp \
-		WidgetBola.cpp \
-		WidgetColision.cpp moc_DControlBolas.cpp \
+		WidgetBola.cpp moc_DControlBolas.cpp \
 		moc_Dialog.cpp \
 		moc_DInfoTabla.cpp \
-		moc_DVerColisiones.cpp \
 		moc_MainWindow.cpp \
-		moc_WidgetBola.cpp \
-		moc_WidgetColision.cpp
+		moc_WidgetBola.cpp
 OBJECTS       = Bola.o \
 		BolaYWidget.o \
-		Colision.o \
 		DControlBolas.o \
 		Dialog.o \
 		DInfoTabla.o \
-		DVerColisiones.o \
 		main.o \
 		MainWindow.o \
 		WidgetBola.o \
-		WidgetColision.o \
 		moc_DControlBolas.o \
 		moc_Dialog.o \
 		moc_DInfoTabla.o \
-		moc_DVerColisiones.o \
 		moc_MainWindow.o \
-		moc_WidgetBola.o \
-		moc_WidgetColision.o
+		moc_WidgetBola.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -149,24 +139,18 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		Bolas.pro Bola.h \
 		BolaYWidget.h \
-		Colision.h \
 		DControlBolas.h \
 		Dialog.h \
 		DInfoTabla.h \
-		DVerColisiones.h \
 		MainWindow.h \
-		WidgetBola.h \
-		WidgetColision.h Bola.cpp \
+		WidgetBola.h Bola.cpp \
 		BolaYWidget.cpp \
-		Colision.cpp \
 		DControlBolas.cpp \
 		Dialog.cpp \
 		DInfoTabla.cpp \
-		DVerColisiones.cpp \
 		main.cpp \
 		MainWindow.cpp \
-		WidgetBola.cpp \
-		WidgetColision.cpp
+		WidgetBola.cpp
 QMAKE_TARGET  = Bolas
 DESTDIR       = 
 TARGET        = Bolas
@@ -175,7 +159,7 @@ TARGET        = Bolas
 first: all
 ####### Build rules
 
-$(TARGET): ui_DControlBolas.h ui_Dialog.h ui_DInfoTabla.h ui_DVerColisiones.h ui_WidgetBola.h ui_WidgetColision.h $(OBJECTS)  
+$(TARGET): ui_DControlBolas.h ui_Dialog.h ui_DInfoTabla.h ui_WidgetBola.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: Bolas.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -329,9 +313,9 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents Bola.h BolaYWidget.h Colision.h DControlBolas.h Dialog.h DInfoTabla.h DVerColisiones.h MainWindow.h WidgetBola.h WidgetColision.h $(DISTDIR)/
-	$(COPY_FILE) --parents Bola.cpp BolaYWidget.cpp Colision.cpp DControlBolas.cpp Dialog.cpp DInfoTabla.cpp DVerColisiones.cpp main.cpp MainWindow.cpp WidgetBola.cpp WidgetColision.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents DControlBolas.ui Dialog.ui DInfoTabla.ui DVerColisiones.ui WidgetBola.ui WidgetColision.ui $(DISTDIR)/
+	$(COPY_FILE) --parents Bola.h BolaYWidget.h DControlBolas.h Dialog.h DInfoTabla.h MainWindow.h WidgetBola.h $(DISTDIR)/
+	$(COPY_FILE) --parents Bola.cpp BolaYWidget.cpp DControlBolas.cpp Dialog.cpp DInfoTabla.cpp main.cpp MainWindow.cpp WidgetBola.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents DControlBolas.ui Dialog.ui DInfoTabla.ui WidgetBola.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -357,12 +341,11 @@ benchmark: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_DControlBolas.cpp moc_Dialog.cpp moc_DInfoTabla.cpp moc_DVerColisiones.cpp moc_MainWindow.cpp moc_WidgetBola.cpp moc_WidgetColision.cpp
+compiler_moc_header_make_all: moc_DControlBolas.cpp moc_Dialog.cpp moc_DInfoTabla.cpp moc_MainWindow.cpp moc_WidgetBola.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_DControlBolas.cpp moc_Dialog.cpp moc_DInfoTabla.cpp moc_DVerColisiones.cpp moc_MainWindow.cpp moc_WidgetBola.cpp moc_WidgetColision.cpp
+	-$(DEL_FILE) moc_DControlBolas.cpp moc_Dialog.cpp moc_DInfoTabla.cpp moc_MainWindow.cpp moc_WidgetBola.cpp
 moc_DControlBolas.cpp: ui_DControlBolas.h \
 		Bola.h \
-		Colision.h \
 		WidgetBola.h \
 		ui_WidgetBola.h \
 		BolaYWidget.h \
@@ -377,7 +360,6 @@ moc_Dialog.cpp: ui_Dialog.h \
 
 moc_DInfoTabla.cpp: ui_DInfoTabla.h \
 		Bola.h \
-		Colision.h \
 		BolaYWidget.h \
 		WidgetBola.h \
 		ui_WidgetBola.h \
@@ -385,13 +367,7 @@ moc_DInfoTabla.cpp: ui_DInfoTabla.h \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include DInfoTabla.h -o moc_DInfoTabla.cpp
 
-moc_DVerColisiones.cpp: ui_DVerColisiones.h \
-		DVerColisiones.h \
-		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include DVerColisiones.h -o moc_DVerColisiones.cpp
-
 moc_MainWindow.cpp: Bola.h \
-		Colision.h \
 		Dialog.h \
 		ui_Dialog.h \
 		DInfoTabla.h \
@@ -401,33 +377,21 @@ moc_MainWindow.cpp: Bola.h \
 		ui_WidgetBola.h \
 		DControlBolas.h \
 		ui_DControlBolas.h \
-		DVerColisiones.h \
-		ui_DVerColisiones.h \
-		WidgetColision.h \
-		ui_WidgetColision.h \
 		MainWindow.h \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include MainWindow.h -o moc_MainWindow.cpp
 
 moc_WidgetBola.cpp: ui_WidgetBola.h \
 		Bola.h \
-		Colision.h \
 		WidgetBola.h \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include WidgetBola.h -o moc_WidgetBola.cpp
 
-moc_WidgetColision.cpp: ui_WidgetColision.h \
-		Colision.h \
-		Bola.h \
-		WidgetColision.h \
-		/usr/lib/x86_64-linux-gnu/qt5/bin/moc
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/home/vesprada/Documents/Interfaces2017-2018/Bolas -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include WidgetColision.h -o moc_WidgetColision.cpp
-
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_DControlBolas.h ui_Dialog.h ui_DInfoTabla.h ui_DVerColisiones.h ui_WidgetBola.h ui_WidgetColision.h
+compiler_uic_make_all: ui_DControlBolas.h ui_Dialog.h ui_DInfoTabla.h ui_WidgetBola.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_DControlBolas.h ui_Dialog.h ui_DInfoTabla.h ui_DVerColisiones.h ui_WidgetBola.h ui_WidgetColision.h
+	-$(DEL_FILE) ui_DControlBolas.h ui_Dialog.h ui_DInfoTabla.h ui_WidgetBola.h
 ui_DControlBolas.h: DControlBolas.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic DControlBolas.ui -o ui_DControlBolas.h
@@ -440,17 +404,9 @@ ui_DInfoTabla.h: DInfoTabla.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic DInfoTabla.ui -o ui_DInfoTabla.h
 
-ui_DVerColisiones.h: DVerColisiones.ui \
-		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
-	/usr/lib/x86_64-linux-gnu/qt5/bin/uic DVerColisiones.ui -o ui_DVerColisiones.h
-
 ui_WidgetBola.h: WidgetBola.ui \
 		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
 	/usr/lib/x86_64-linux-gnu/qt5/bin/uic WidgetBola.ui -o ui_WidgetBola.h
-
-ui_WidgetColision.h: WidgetColision.ui \
-		/usr/lib/x86_64-linux-gnu/qt5/bin/uic
-	/usr/lib/x86_64-linux-gnu/qt5/bin/uic WidgetColision.ui -o ui_WidgetColision.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -462,25 +418,18 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 
 ####### Compile
 
-Bola.o: Bola.cpp Bola.h \
-		Colision.h
+Bola.o: Bola.cpp Bola.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Bola.o Bola.cpp
 
 BolaYWidget.o: BolaYWidget.cpp BolaYWidget.h \
 		Bola.h \
-		Colision.h \
 		WidgetBola.h \
 		ui_WidgetBola.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o BolaYWidget.o BolaYWidget.cpp
 
-Colision.o: Colision.cpp Colision.h \
-		Bola.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Colision.o Colision.cpp
-
 DControlBolas.o: DControlBolas.cpp DControlBolas.h \
 		ui_DControlBolas.h \
 		Bola.h \
-		Colision.h \
 		WidgetBola.h \
 		ui_WidgetBola.h \
 		BolaYWidget.h
@@ -493,19 +442,13 @@ Dialog.o: Dialog.cpp Dialog.h \
 DInfoTabla.o: DInfoTabla.cpp DInfoTabla.h \
 		ui_DInfoTabla.h \
 		Bola.h \
-		Colision.h \
 		BolaYWidget.h \
 		WidgetBola.h \
 		ui_WidgetBola.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DInfoTabla.o DInfoTabla.cpp
 
-DVerColisiones.o: DVerColisiones.cpp DVerColisiones.h \
-		ui_DVerColisiones.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DVerColisiones.o DVerColisiones.cpp
-
 main.o: main.cpp MainWindow.h \
 		Bola.h \
-		Colision.h \
 		Dialog.h \
 		ui_Dialog.h \
 		DInfoTabla.h \
@@ -514,16 +457,11 @@ main.o: main.cpp MainWindow.h \
 		WidgetBola.h \
 		ui_WidgetBola.h \
 		DControlBolas.h \
-		ui_DControlBolas.h \
-		DVerColisiones.h \
-		ui_DVerColisiones.h \
-		WidgetColision.h \
-		ui_WidgetColision.h
+		ui_DControlBolas.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 MainWindow.o: MainWindow.cpp MainWindow.h \
 		Bola.h \
-		Colision.h \
 		Dialog.h \
 		ui_Dialog.h \
 		DInfoTabla.h \
@@ -532,24 +470,13 @@ MainWindow.o: MainWindow.cpp MainWindow.h \
 		WidgetBola.h \
 		ui_WidgetBola.h \
 		DControlBolas.h \
-		ui_DControlBolas.h \
-		DVerColisiones.h \
-		ui_DVerColisiones.h \
-		WidgetColision.h \
-		ui_WidgetColision.h
+		ui_DControlBolas.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o MainWindow.cpp
 
 WidgetBola.o: WidgetBola.cpp WidgetBola.h \
 		ui_WidgetBola.h \
-		Bola.h \
-		Colision.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o WidgetBola.o WidgetBola.cpp
-
-WidgetColision.o: WidgetColision.cpp WidgetColision.h \
-		ui_WidgetColision.h \
-		Colision.h \
 		Bola.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o WidgetColision.o WidgetColision.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o WidgetBola.o WidgetBola.cpp
 
 moc_DControlBolas.o: moc_DControlBolas.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_DControlBolas.o moc_DControlBolas.cpp
@@ -560,17 +487,11 @@ moc_Dialog.o: moc_Dialog.cpp
 moc_DInfoTabla.o: moc_DInfoTabla.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_DInfoTabla.o moc_DInfoTabla.cpp
 
-moc_DVerColisiones.o: moc_DVerColisiones.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_DVerColisiones.o moc_DVerColisiones.cpp
-
 moc_MainWindow.o: moc_MainWindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MainWindow.o moc_MainWindow.cpp
 
 moc_WidgetBola.o: moc_WidgetBola.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_WidgetBola.o moc_WidgetBola.cpp
-
-moc_WidgetColision.o: moc_WidgetColision.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_WidgetColision.o moc_WidgetColision.cpp
 
 ####### Install
 
