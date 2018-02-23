@@ -8,6 +8,7 @@
 #include <QColor>
 #include <QPainter>
 
+
 #include "ui_WidgetBola.h"
 #include "Bola.h"
 
